@@ -1,0 +1,5 @@
+node_modules
+.cache
+plugins
+public
+.DS_Store
