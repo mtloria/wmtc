@@ -8,10 +8,24 @@ const IndexPage = () => {
     document.body.style.padding = '0';
   }, []);
 
+  const [opacity, setOpacity] = React.useState(0.8);
+
+  React.useEffect(() => {
+    const handleScroll = () => {
+      const scrollTop = window.scrollY;
+      const maxScroll = window.innerHeight;
+      const newOpacity = Math.max(0, 0.8 - (scrollTop / maxScroll));
+      setOpacity(newOpacity);
+    };
+
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
   return (
-    <main style={{ height: '100vh', overflow: 'hidden', position: 'relative' }}>
+    <main style={{ height: '200vh', position: 'relative' }}>
       <StaticImage 
-        src='../images/brady-track.jpg' 
+        src='../images/brady-track-2.jpeg'
         alt='Background Image' 
         style={{ 
           position: 'absolute', 
@@ -20,15 +34,22 @@ const IndexPage = () => {
           width: '100%', 
           height: '100%', 
           objectFit: 'cover', 
-          opacity: 0.8,
+          opacity: opacity,
           zIndex: -1 
         }} 
       />
       <NavBar />
+      <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '70vh' }}>
+        <h1 style={{ color: 'white', textAlign: 'center' }}>Working Man's Track Club</h1>
+      </div>
+      <div style={{ height: '100vh', padding: '20px', marginTop: '50vh' }} id="about-section">
+        <h2>About the Team</h2>
+        <p>Insert blurb about the club here.</p>
+      </div>
     </main>
   )
 }
 
 export default IndexPage
 
-export const Head = () => <title>Home Page</title>
+export const Head = () => <title>Running | WMTC</title>
