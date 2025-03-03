@@ -1,6 +1,7 @@
 import * as React from 'react';
 import NavBar from './components/navbar';
 import { StaticImage } from 'gatsby-plugin-image';
+import AboutTheTeamPage from './about-the-team';
 
 const IndexPage = () => {
   React.useEffect(() => {
@@ -51,8 +52,7 @@ const IndexPage = () => {
         }} 
         id="about-section"
       >
-        <h2>About the Team</h2>
-        <p>Insert blurb about the club here.</p>
+        <AboutTheTeamPage />
       </div>
     </main>
   )
