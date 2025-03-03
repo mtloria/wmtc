@@ -9,6 +9,12 @@ module.exports = {
   plugins: [
     "gatsby-plugin-image",
     "gatsby-plugin-sharp",
+    {
+      resolve: 'gatsby-plugin-manifest',
+      options: {
+        "icon": "src/images/WMTC_Logo.png"
+      }
+    }
   ],
   pathPrefix: "/wmtc",
 }
