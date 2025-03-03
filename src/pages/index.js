@@ -1,7 +1,8 @@
 import * as React from 'react';
-import NavBar from './components/navbar';
+import NavBar from '../components/navbar';
 import { StaticImage } from 'gatsby-plugin-image';
 import AboutTheTeamPage from './about-the-team';
+import { useLocation } from '@reach/router';
 
 const IndexPage = () => {
   React.useEffect(() => {
@@ -60,4 +61,26 @@ const IndexPage = () => {
 
 export default IndexPage
 
-export const Head = () => <title>Running | WMTC</title>
+export const Head = () => {
+  const location = useLocation();
+  const pipeWMTC = ' | WMTC';
+  let title;
+
+  switch (location.pathname) {
+    case '/':
+      title = 'Running' + pipeWMTC;
+      break;
+    case '/meet-the-team/':
+      title = 'Meet the Team' + pipeWMTC;
+      break;
+    // Add more cases here for future pages
+    default:
+      title = 'WMTC';
+  }
+
+  React.useEffect(() => {
+    document.title = title;
+  }, [location.pathname, title]);
+
+  return null;
+}
