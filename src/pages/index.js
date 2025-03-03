@@ -66,7 +66,9 @@ export const Head = () => {
   const pipeWMTC = ' | WMTC';
   let title;
 
-  switch (location.pathname) {
+  const path = location.pathname.replace(/^\/wmtc/, '');
+
+  switch (path) {
     case '/':
       title = 'Running' + pipeWMTC;
       break;
@@ -80,7 +82,7 @@ export const Head = () => {
 
   React.useEffect(() => {
     document.title = title;
-  }, [location.pathname, title]);
+  }, [path, title]);
 
   return null;
 }
