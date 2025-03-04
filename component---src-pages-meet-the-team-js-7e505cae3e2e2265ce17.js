@@ -1,2 +1,0 @@
-"use strict";(self.webpackChunkwmtc=self.webpackChunkwmtc||[]).push([[680],{9374:function(e,t,l){l.r(t);var n=l(6540),m=l(5807);t.default=()=>(n.useEffect((()=>{document.body.style.margin="0",document.body.style.padding="0",document.title="Meet the Team | WMTC"}),[]),n.createElement(n.Fragment,null,n.createElement(m.A,null),n.createElement("div",null,n.createElement("h1",null,"Meet the Team"),n.createElement("p",null,"Insert team members here."))))}}]);
-//# sourceMappingURL=component---src-pages-meet-the-team-js-7e505cae3e2e2265ce17.js.map

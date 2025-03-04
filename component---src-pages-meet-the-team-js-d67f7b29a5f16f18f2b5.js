@@ -1,2 +1,0 @@
-"use strict";(self.webpackChunkwmtc=self.webpackChunkwmtc||[]).push([[680],{9374:function(e,t,l){l.r(t);var n=l(6540),a=l(9803);t.default=()=>n.createElement(n.Fragment,null,n.createElement(a.default,null),n.createElement("div",null,n.createElement("h1",null,"Meet the Team"),n.createElement("p",null,"Insert team members here.")))}}]);
-//# sourceMappingURL=component---src-pages-meet-the-team-js-d67f7b29a5f16f18f2b5.js.map
