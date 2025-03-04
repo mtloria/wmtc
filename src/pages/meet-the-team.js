@@ -28,9 +28,10 @@ const MeetTheTeamPage = () => {
                 childImageSharp {
                   gatsbyImageData(
                     width: 800
-                    quality: 90
+                    quality: 100
                     placeholder: BLURRED
                     formats: [AUTO, WEBP, AVIF]
+                    layout: CONSTRAINED
                   )
                 }
               }
