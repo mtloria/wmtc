@@ -73,7 +73,7 @@ const MeetTheTeamPage = () => {
                     {teamLeadersWithImages.map((leader) => (
                         <Card key={leader.name} onClick={() => handleOpen(leader)} sx={{ cursor: 'pointer', boxShadow: 3, transition: 'transform 0.3s', '&:hover': { transform: 'scale(1.05)' } }}>
                             <CardContent>
-                                <GatsbyImage image={leader.image} alt={leader.name} style={{ width: '100%', height: 'auto', borderRadius: '10px' }} />
+                                <GatsbyImage loading="eager" fadeIn={true} image={leader.image} alt={leader.name} style={{ width: '100%', height: 'auto', borderRadius: '10px' }} />
                                 <p style={{ fontSize: '1.2rem', marginTop: '10px', fontWeight: 'bold' }}>{leader.name}</p>
                             </CardContent>
                         </Card>
