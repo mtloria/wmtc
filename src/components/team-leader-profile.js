@@ -29,7 +29,7 @@ const TeamLeaderProfile = ({ leader, onClose }) => {
                 <Typography variant="h4" component="h2" gutterBottom>
                     {leader.name}
                 </Typography>
-                <GatsbyImage image={leader.image} loading="eager" fadeIn={true} alt={leader.name} imgStyle={{ borderRadius: '50%' }} style={{ width: '200px', height: '200px', marginBottom: '20px' }} />
+                <GatsbyImage image={leader.image} alt={leader.name} imgStyle={{ borderRadius: '50%' }} style={{ width: '200px', height: '200px', marginBottom: '20px' }} />
                 <Typography variant="body1" paragraph>
                     {leader.description}
                 </Typography>
