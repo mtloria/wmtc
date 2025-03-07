@@ -2,10 +2,11 @@ import React from 'react';
 import { GatsbyImage } from 'gatsby-plugin-image';
 import { Card, CardContent } from '@mui/material';
 
-const TeamLeaderCard = ({ member }) => {
+const TeamLeaderCard = ({ member, onClose }) => {
     return (
         <Card sx={{ textAlign: 'left', padding: '20px' }}>
             <CardContent>
+                <button onClick={onClose} style={{ float: 'right', fontSize: '1.5rem' }}>×</button>
                 <h2 style={{ fontSize: '2rem', marginBottom: '10px' }}>{member.name}</h2>
                 <GatsbyImage image={member.image} alt={member.name} style={{ width: '200px', height: 'auto', borderRadius: '50%', marginBottom: '20px' }} />
                 <p style={{ fontSize: '1rem', lineHeight: '1.6', marginBottom: '20px' }}>{member.description}</p>

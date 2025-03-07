@@ -1,11 +1,21 @@
 import * as React from 'react';
 import NavBar from '../components/navbar';
 import TeamLeaderCard from '../components/team-leader-card';
-import { Box } from '@mui/material';
+import { Box, Modal, Card, CardContent } from '@mui/material';
 import { graphql, useStaticQuery } from "gatsby"
-import { getImage } from "gatsby-plugin-image"
+import { GatsbyImage, getImage } from "gatsby-plugin-image"
 
 const MeetTheTeamPage = () => {
+    const [selectedMember, setSelectedMember] = React.useState(null);
+
+    const handleOpen = (member) => {
+        setSelectedMember(member);
+    };
+
+    const handleClose = () => {
+        setSelectedMember(null);
+    };
+
     React.useEffect(() => {
         // Handle page reload quirks
         document.body.style.margin = '0';
@@ -99,17 +109,27 @@ const MeetTheTeamPage = () => {
     ];
 
     return (
-      <Box sx={{ backgroundColor: 'background.default' }}>
-      <NavBar />
-      <Box sx={{ maxWidth: '1200px', margin: '0 auto', textAlign: 'center', flexGrow: 1 }}>
-        <h1 style={{ fontSize: '2.5rem', marginBottom: '20px' }}>Meet the Team</h1>
-        <Box sx={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '20px' }}>
-        {teamMembers.map((member) => (
-          <TeamLeaderCard member={member} />
-        ))}
+        <Box sx={{ backgroundColor: 'background.default' }}>
+            <NavBar />
+            <Box sx={{ maxWidth: '1200px', margin: '0 auto', textAlign: 'center', flexGrow: 1 }}>
+                <h1 style={{ fontSize: '2.5rem', marginBottom: '20px' }}>Meet the Team</h1>
+                <Box sx={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))', gap: '20px' }}>
+                    {teamMembers.map((member) => (
+                        <Card key={member.name} onClick={() => handleOpen(member)} sx={{ cursor: 'pointer', boxShadow: 3, transition: 'transform 0.3s', '&:hover': { transform: 'scale(1.05)' } }}>
+                            <CardContent>
+                                <GatsbyImage image={member.image} alt={member.name} style={{ width: '100%', height: 'auto', borderRadius: '10px' }} />
+                                <p style={{ fontSize: '1.2rem', marginTop: '10px', fontWeight: 'bold' }}>{member.name}</p>
+                            </CardContent>
+                        </Card>
+                    ))}
+                </Box>
+                <Modal open={!!selectedMember} onClose={handleClose}>
+                    <Box sx={{ position: 'absolute', top: '50%', left: '50%', transform: 'translate(-50%, -50%)', width: '80%', maxWidth: '600px', bgcolor: 'background.paper', boxShadow: 24, p: 4 }}>
+                        {selectedMember && <TeamLeaderCard member={selectedMember} onClose={handleClose} />}
+                    </Box>
+                </Modal>
+            </Box>
         </Box>
-      </Box>
-      </Box>
     );
 }
 
