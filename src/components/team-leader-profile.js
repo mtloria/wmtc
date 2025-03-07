@@ -19,7 +19,7 @@ const modalStyle = {
     outline: 'none',
 };
 
-const TeamLeaderCard = ({ member, onClose }) => {
+const TeamLeaderProfile = ({ leader, onClose }) => {
     return (
         <Box sx={modalStyle}>
             <IconButton onClick={onClose} sx={{ position: 'absolute', top: 8, right: 8 }}>
@@ -27,17 +27,17 @@ const TeamLeaderCard = ({ member, onClose }) => {
             </IconButton>
             <CardContent>
                 <Typography variant="h4" component="h2" gutterBottom>
-                    {member.name}
+                    {leader.name}
                 </Typography>
-                <GatsbyImage image={member.image} alt={member.name} imgStyle={{ borderRadius: '50%' }} style={{ width: '200px', height: '200px', marginBottom: '20px' }} />
+                <GatsbyImage image={leader.image} alt={leader.name} imgStyle={{ borderRadius: '50%' }} style={{ width: '200px', height: '200px', marginBottom: '20px' }} />
                 <Typography variant="body1" paragraph>
-                    {member.description}
+                    {leader.description}
                 </Typography>
                 <Typography variant="h5" component="h3">
                     PRs:
                 </Typography>
                 <List sx={{ padding: 0 }}>
-                    {member.prs.map((pr, index) => (
+                    {leader.prs.map((pr, index) => (
                         <ListItem key={index} sx={{ paddingTop: 0, paddingBottom: 0, paddingLeft: 0 }}>
                             <Typography variant="body1">
                                 <span role="img" aria-label="check">✅</span> {pr}
@@ -50,7 +50,7 @@ const TeamLeaderCard = ({ member, onClose }) => {
                     Other Accomplishments:
                 </Typography>
                 <List sx={{ padding: 0 }}>
-                    {member.accomplishments.map((accomplishment, index) => (
+                    {leader.accomplishments.map((accomplishment, index) => (
                         <ListItem key={index} sx={{ paddingTop: 0, paddingBottom: 0, paddingLeft: 0 }}>
                             <Typography variant="body1">
                                 <span role="img" aria-label="star">⭐</span> {accomplishment}
@@ -63,4 +63,4 @@ const TeamLeaderCard = ({ member, onClose }) => {
     );
 };
 
-export default TeamLeaderCard;
+export default TeamLeaderProfile;
