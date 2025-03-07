@@ -4,11 +4,17 @@
 module.exports = {
   siteMetadata: {
     title: `WMTC`,
-    siteUrl: `https://www.yourdomain.tld`,
   },
   plugins: [
     "gatsby-plugin-image",
-    "gatsby-plugin-sharp",
+    {
+      resolve: `gatsby-plugin-sharp`,
+      options: {
+        defaultQuality: 90,
+        stripMetadata: true,
+        failOnError: false, // Set to true for local debugging
+      },
+    },
     "gatsby-transformer-sharp",
     {
       resolve: `gatsby-source-filesystem`,
@@ -25,4 +31,5 @@ module.exports = {
     }
   ],
   pathPrefix: "/wmtc",
+  assetPrefix: "",
 }
