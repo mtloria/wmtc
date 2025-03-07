@@ -47,7 +47,7 @@ const MeetTheTeamPage = () => {
                     width: 1200
                     quality: 100
                     placeholder: BLURRED
-                    formats: [JPG]
+                    formats: [AUTO]
                     layout: CONSTRAINED
                   )
                 }
