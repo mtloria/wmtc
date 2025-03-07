@@ -42,7 +42,7 @@ const MeetTheTeamPage = () => {
                     width: 800
                     quality: 100
                     placeholder: BLURRED
-                    formats: [AUTO]
+                    formats: [WEBP]
                     layout: CONSTRAINED
                   )
                 }
