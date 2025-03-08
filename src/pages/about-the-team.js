@@ -70,6 +70,25 @@ const AboutTheTeamPage = () => {
                 </Card>
             </Box>
             <Divider sx={{ marginY: 4 }} />
+            <Box sx={{ display: "flex", justifyContent: "center", marginTop: 4 }}>
+                <Card sx={{ maxWidth: 1000 }}>
+                    <CardContent>
+                        <Typography variant="h4" gutterBottom sx={{ fontWeight: "bold", color: "#202a44" }}>
+                            The Story of the Working Man
+                        </Typography>
+                        <Box sx={{ position: "relative", paddingBottom: "50%", overflow: "hidden", width: "800px", background: "#000", marginTop: 2 }}>
+                            <iframe
+                                src="https://www.youtube.com/embed/xyxp2ax1WhA"
+                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                                allowFullScreen
+                                title="WMTC Video"
+                                style={{ position: "absolute", top: 0, left: 0, width: "100%", height: "100%" }}
+                            />
+                        </Box>
+                    </CardContent>
+                </Card>
+            </Box>
+            <Divider sx={{ marginY: 4 }} />
             <Box sx={{ display: "flex", justifyContent: "center", marginTop: 5 }}>
                 <StaticImage src='../images/WMTC_Logo.png' alt="WMTC Logo" style={{ width: "100%", maxWidth: 200, margin: "0 auto", objectFit: "cover", height: "auto" }} />
             </Box>
