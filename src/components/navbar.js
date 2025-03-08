@@ -49,6 +49,7 @@ const NavBar = () => {
             <Button key='Records' sx={{ color: 'white', display: 'block', width: '100%', '&:hover': { backgroundColor: 'rgba(255, 255, 255, 0.1)' } }} onClick={() => { navigate('/records') }}>Records</Button>
           </Box>
           </Box>
+          <Button key='Contact' sx={{ my: 2, color: 'white', display: 'block', '&:hover': { backgroundColor: 'rgba(255, 255, 255, 0.1)' } }} onClick={() => { navigate('/contact') }}>Contact</Button>
         </Box>
         <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' }, justifyContent: 'flex-end' }}>
           <IconButton
@@ -86,6 +87,9 @@ const NavBar = () => {
             </ListItem>
             <ListItem>
               <ListItemButton onClick={() => navigate('/records')}>Records</ListItemButton>
+            </ListItem>
+            <ListItem>
+              <ListItemButton onClick={() => navigate('/contact')}>Contact</ListItemButton>
             </ListItem>
             </List>
           </Box>
