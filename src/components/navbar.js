@@ -1,16 +1,7 @@
 import * as React from 'react';
-import AppBar from '@mui/material/AppBar';
-import Box from '@mui/material/Box';
-import Toolbar from '@mui/material/Toolbar';
-import Container from '@mui/material/Container';
-import Button from '@mui/material/Button';
-import IconButton from '@mui/material/IconButton';
+import { AppBar, Box, Toolbar, Container, Button, IconButton, Drawer, List, ListItem, ListItemButton } from '@mui/material';
 import MenuIcon from '@mui/icons-material/Menu';
-import Drawer from '@mui/material/Drawer';
-import List from '@mui/material/List';
-import ListItem from '@mui/material/List';
-import ListItemButton from '@mui/material/ListItemButton';
-import { navigate } from "gatsby"
+import { navigate } from "gatsby";
 import { StaticImage } from 'gatsby-plugin-image';
 
 const NavBar = () => {
@@ -47,12 +38,19 @@ const NavBar = () => {
         <IconButton onClick={() => navigate('/')} style={{ padding: 0 }}>
           <StaticImage src='../images/WMTC_Logo.png' alt='WMTC Logo' style={{ width: '50px', height: '50px' }} placeholder="blurred" />
         </IconButton>
-        <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' }, justifyContent: 'flex-end', overflow: 'auto' }}>
-          <Button key='About' sx={{ my: 2, color: 'white', display: 'block' }} onClick={handleAboutClick}>About</Button>
-          <Button key='Meet the Team' sx={{ my: 2, color: 'white', display: 'block' }} onClick={()=>{navigate('/meet-the-team')}}>Meet the Team</Button>
-          <Button key='Schedule' sx={{ my: 2, color: 'white', display: 'block' }}>Schedule</Button>
+        <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' }, justifyContent: 'flex-end' }}>
+          <Button key='About' sx={{ my: 2, color: 'white', display: 'block', '&:hover': { backgroundColor: 'rgba(255, 255, 255, 0.1)' } }} onClick={handleAboutClick}>About</Button>
+          <Button key='Meet the Team' sx={{ my: 2, color: 'white', display: 'block', '&:hover': { backgroundColor: 'rgba(255, 255, 255, 0.1)' } }} onClick={() => { navigate('/meet-the-team') }}>Meet the Team</Button>
+          <Box sx={{ my: 2, color: 'white', display: 'block', position: 'relative' }} onMouseEnter={(e) => e.currentTarget.children[1].style.display = 'block'} onMouseLeave={(e) => e.currentTarget.children[1].style.display = 'none'}>
+          <Button key='Events' sx={{ color: 'white', '&:hover': { backgroundColor: 'rgba(255, 255, 255, 0.1)' } }}>Other</Button>
+          <Box sx={{ display: 'none', position: 'absolute', top: '100%', left: 0, backgroundColor: 'rgba(0, 0, 0, 0.7)', zIndex: 1, minWidth: '150px' }}>
+            <Button key='Schedule' sx={{ color: 'white', display: 'block', width: '100%', '&:hover': { backgroundColor: 'rgba(255, 255, 255, 0.1)' } }} onClick={() => { navigate('/schedule') }}>Schedule</Button>
+            <Button key='Results' sx={{ color: 'white', display: 'block', width: '100%', '&:hover': { backgroundColor: 'rgba(255, 255, 255, 0.1)' } }} onClick={() => { navigate('/results') }}>Results</Button>
+            <Button key='Records' sx={{ color: 'white', display: 'block', width: '100%', '&:hover': { backgroundColor: 'rgba(255, 255, 255, 0.1)' } }} onClick={() => { navigate('/records') }}>Records</Button>
+          </Box>
+          </Box>
         </Box>
-        <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' }, justifyContent: 'flex-end', overflow: 'auto' }}>
+        <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' }, justifyContent: 'flex-end' }}>
           <IconButton
           size="large"
           edge="start"
@@ -64,28 +62,34 @@ const NavBar = () => {
           <MenuIcon />
           </IconButton>
           <Drawer
-            anchor="right" 
-            variant="temporary"
-            open={open} 
-            onClose={toggleDrawer(false)}
-          > 
-            <Box>
-              <List>
-                <ListItem>
-                  <ListItemButton onClick={() => navigate('/')}>Home</ListItemButton>
-                </ListItem>
-                <ListItem>
-                  <ListItemButton onClick={handleAboutClick}>About</ListItemButton>
-                </ListItem>
-                <ListItem>
-                  <ListItemButton onClick={() => navigate('/meet-the-team')}>Meet the Team</ListItemButton>
-                </ListItem>
-              </List>
-              <Button key='About' sx={{ my: 2, color: 'white', display: 'block' }} onClick={handleAboutClick}>About</Button>
-              <Button key='Meet the Team' sx={{ my: 2, color: 'white', display: 'block' }} onClick={()=>{navigate('/meet-the-team')}}>Meet the Team</Button>
-              <Button key='Schedule' sx={{ my: 2, color: 'white', display: 'block' }}>Schedule</Button>
-            </Box>
-        </Drawer>
+          anchor="right"
+          variant="temporary"
+          open={open}
+          onClose={toggleDrawer(false)}
+          >
+          <Box>
+            <List>
+            <ListItem>
+              <ListItemButton onClick={() => navigate('/')}>Home</ListItemButton>
+            </ListItem>
+            <ListItem>
+              <ListItemButton onClick={handleAboutClick}>About</ListItemButton>
+            </ListItem>
+            <ListItem>
+              <ListItemButton onClick={() => navigate('/meet-the-team')}>Meet the Team</ListItemButton>
+            </ListItem>
+            <ListItem>
+              <ListItemButton onClick={() => navigate('/schedule')}>Schedule</ListItemButton>
+            </ListItem>
+            <ListItem>
+              <ListItemButton onClick={() => navigate('/results')}>Results</ListItemButton>
+            </ListItem>
+            <ListItem>
+              <ListItemButton onClick={() => navigate('/records')}>Records</ListItemButton>
+            </ListItem>
+            </List>
+          </Box>
+          </Drawer>
         </Box>
         </Toolbar>
       </Container>
