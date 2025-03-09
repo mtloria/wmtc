@@ -9,7 +9,8 @@
     "serve": "gatsby serve --prefix-paths",
     "clean": "gatsby clean",
     "build": "GATSBY_EXPERIMENTAL_PAGE_BUILD_ON_DATA_CHANGES=true gatsby build --prefix-paths",
-    "deploy": "npm run build && gh-pages -d public"
+    "deploy": "npm run build && gh-pages -d public",
+    "lint": "eslint . --ext .js,.jsx"
   },
   "dependencies": {
     "@emotion/react": "11.14.0",
@@ -26,7 +27,12 @@
     "react-dom": "18.2.0"
   },
   "devDependencies": {
-    "gh-pages": "^6.3.0"
+    "@babel/preset-react": "^7.26.3",
+    "eslint": "^7.0.0",
+    "eslint-plugin-react": "^7.37.4",
+    "gh-pages": "^6.3.0",
+    "@typescript-eslint/eslint-plugin": "^4.0.0",
+    "eslint-config-react-app": "^6.0.0"
   },
   "overrides": {
     "react-server-dom-webpack@0.0.0-experimental-c8b778b7f-20220825": {
