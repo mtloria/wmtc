@@ -12,7 +12,7 @@ module.exports = {
       options: {
         defaultQuality: 90,
         stripMetadata: true,
-        failOnError: false, // Set to true for local debugging
+        failOn: 'error',
       },
     },
     "gatsby-transformer-sharp",
