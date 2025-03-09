@@ -42,7 +42,7 @@ const IndexPage = () => {
       />
       <NavBar />
       <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '70vh' }}>
-        <h1 style={{ color: 'white', textAlign: 'center' }}>Working Man's Track Club</h1>
+        <h1 style={{ color: 'white', textAlign: 'center' }}>Working Man&apos;s Track Club</h1>
       </div>
       <div 
         style={{ 
@@ -56,10 +56,10 @@ const IndexPage = () => {
         <AboutTheTeamPage />
       </div>
     </main>
-  )
-}
+  );
+};
 
-export default IndexPage
+export default IndexPage;
 
 export const Head = () => {
   const location = useLocation();
@@ -69,15 +69,15 @@ export const Head = () => {
   const path = location.pathname.replace(/^\/wmtc/, '');
 
   switch (path) {
-    case '/':
-      title = 'Running' + pipeWMTC;
-      break;
-    case '/meet-the-team/':
-      title = 'Meet the Team' + pipeWMTC;
-      break;
+  case '/':
+    title = 'Running' + pipeWMTC;
+    break;
+  case '/meet-the-team/':
+    title = 'Meet the Team' + pipeWMTC;
+    break;
     // Add more cases here for future pages
-    default:
-      title = 'WMTC';
+  default:
+    title = 'WMTC';
   }
 
   React.useEffect(() => {
@@ -85,4 +85,4 @@ export const Head = () => {
   }, [path, title]);
 
   return null;
-}
+};
