@@ -3,8 +3,10 @@ import NavBar from '../components/navbar';
 import TeamLeaderProfile from '../components/team-leader-profile';
 import { Box, Modal, Card, CardContent, Tabs, Tab } from '@mui/material';
 import { graphql, useStaticQuery } from 'gatsby';
-import { GatsbyImage, getImage } from 'gatsby-plugin-image';
+import { GatsbyImage } from 'gatsby-plugin-image';
 import teamLeaders from '../data/team-leaders';
+import EliteCard from '../components/elite-card';
+import { getImageByName } from '../utils/imageDataParser';
 
 const MeetTheTeamPage = () => {
   const [selectedLeader, setSelectedLeader] = React.useState(null);
@@ -29,43 +31,37 @@ const MeetTheTeamPage = () => {
     document.title = 'Meet the Team | WMTC';
   }, []);
 
-  const imageData = useStaticQuery(graphql`
-        query {
-          allFile(
-            filter: { 
-              sourceInstanceName: { eq: "images" },
-              relativeDirectory: { eq: "leaders" },
-              extension: { regex: "/(jpg|jpeg|png|gif)/" }
-            }
-          ) {
-            edges {
-              node {
-                relativePath
-                name
-                childImageSharp {
-                  gatsbyImageData(
-                    width: 1200
-                    quality: 100
-                    placeholder: BLURRED
-                    formats: [AUTO]
-                    layout: CONSTRAINED
-                  )
+  const clubLeaderImageData = useStaticQuery(graphql`
+          query {
+            allFile(
+              filter: { 
+                sourceInstanceName: { eq: "images" },
+                relativeDirectory: { eq: "leaders" },
+                extension: { regex: "/(jpg|jpeg|png|gif)/" }
+              }
+            ) {
+              edges {
+                node {
+                  relativePath
+                  name
+                  childImageSharp {
+                    gatsbyImageData(
+                      width: 1200
+                      quality: 100
+                      placeholder: BLURRED
+                      formats: [AUTO]
+                      layout: CONSTRAINED
+                    )
+                  }
                 }
               }
             }
           }
-        }
-      `);
-      
-  const getImageByName = (name) => {
-    const imageNode = imageData.allFile.edges.find(({ node }) => node.name === name);
-    return imageNode ? getImage(imageNode.node.childImageSharp.gatsbyImageData) : null;
-  };
-
+        `);
   const teamLeadersWithImages = teamLeaders.map((leader) => {
     return {
       ...leader,
-      image: getImageByName(leader.image)
+      image: getImageByName(clubLeaderImageData, leader.image)
     };
   });
 
@@ -78,7 +74,6 @@ const MeetTheTeamPage = () => {
           <Tabs 
             value={tabIndex} 
             onChange={handleTabChange} 
-            centered 
             variant="scrollable" 
             scrollButtons="auto"
             sx={{ '& .MuiTab-root': { minWidth: 'auto', padding: '0 12px' } }}
@@ -102,7 +97,7 @@ const MeetTheTeamPage = () => {
         )}
         {tabIndex === 1 && (
           <Box>
-            <p>Elite Athletes content goes here.</p>
+            <EliteCard />
           </Box>
         )}
         {tabIndex === 2 && (
