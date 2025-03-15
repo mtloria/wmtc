@@ -45,16 +45,16 @@ const EliteCard = () => {
     <div>
       <Box display="flex" flexWrap="wrap" justifyContent="space-around">
         {elitesWithImages.map((elite, index) => (
-          <Box key={index} m={2} width={300}>
-            <Card>
-              <CardMedia>
+          <Box key={index} m={2} width={300} height={525}>
+            <Card style={{ height: '100%', display: 'flex', flexDirection: 'column', boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1)', border: '1px solid #ddd' }}>
+              <CardMedia style={{ flex: '1 0 auto' }}>
                 <GatsbyImage
                   image={elite.image}
                   alt={elite.name}
                   style={{ height: '100%', objectFit: 'contain' }}
                 />
               </CardMedia>
-              <CardContent>
+              <CardContent style={{ flex: '0 1 auto' }}>
                 <Typography gutterBottom variant="h4" component="div" color="text.primary">
                   {elite.name}
                 </Typography>
@@ -68,9 +68,9 @@ const EliteCard = () => {
                   <Typography variant="body1" color="text.primary" style={{ fontWeight: 'bold' }}>
                     PRs:
                   </Typography>
-                  <List dense style={{ paddingLeft: '0' }}>
+                  <List dense style={{ padding: 0 }}>
                     {elite.prs.map((pr, index) => (
-                      <ListItem key={index} style={{ paddingTop: 0, paddingBottom: 0 }}>
+                      <ListItem key={index} style={{ paddingTop: 0, paddingBottom: 0, paddingLeft: 5 }}>
                         <ListItemIcon style={{ minWidth: '30px' }}>
                           <span role="img" aria-label="check">✅</span>
                         </ListItemIcon>
