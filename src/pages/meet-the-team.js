@@ -7,6 +7,7 @@ import { GatsbyImage } from 'gatsby-plugin-image';
 import teamLeaders from '../data/team-leaders';
 import EliteCard from '../components/elite-card';
 import { getImageByName } from '../utils/imageDataParser';
+import MemberTable from '../components/member-table';
 
 const MeetTheTeamPage = () => {
   const [selectedLeader, setSelectedLeader] = React.useState(null);
@@ -102,7 +103,7 @@ const MeetTheTeamPage = () => {
         )}
         {tabIndex === 2 && (
           <Box>
-            <p>Club Members content goes here.</p>
+            <MemberTable />
           </Box>
         )}
         <Modal open={!!selectedLeader} onClose={handleClose}>
