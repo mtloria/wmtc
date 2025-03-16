@@ -8,6 +8,7 @@ import teamLeaders from '../data/team-leaders';
 import EliteCard from '../components/elite-card';
 import { getImageByName } from '../utils/imageDataParser';
 import MemberTable from '../components/member-table';
+import EliteStandards from '../components/elite-standards';
 
 const MeetTheTeamPage = () => {
   const [selectedLeader, setSelectedLeader] = React.useState(null);
@@ -98,6 +99,7 @@ const MeetTheTeamPage = () => {
         )}
         {tabIndex === 1 && (
           <Box>
+            <EliteStandards />
             <EliteCard />
           </Box>
         )}
