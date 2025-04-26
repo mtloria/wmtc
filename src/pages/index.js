@@ -75,7 +75,9 @@ export const Head = () => {
   case '/meet-the-team/':
     title = 'Meet the Team' + pipeWMTC;
     break;
-    // Add more cases here for future pages
+  case '/contact/':
+    title = 'Contact' + pipeWMTC;
+    break;
   default:
     title = 'WMTC';
   }
