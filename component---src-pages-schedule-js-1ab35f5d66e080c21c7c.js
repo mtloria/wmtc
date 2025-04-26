@@ -1,2 +1,0 @@
-"use strict";(self.webpackChunkwmtc=self.webpackChunkwmtc||[]).push([[530],{4274:function(e,l,t){t.r(l);var n=t(6540),c=t(3077);l.default=()=>n.createElement(n.Fragment,null,n.createElement(c.A,null),n.createElement("h1",null,"Schedule"))}}]);
-//# sourceMappingURL=component---src-pages-schedule-js-1ab35f5d66e080c21c7c.js.map

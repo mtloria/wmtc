@@ -1,0 +1,2 @@
+"use strict";(self.webpackChunkwmtc=self.webpackChunkwmtc||[]).push([[431],{201:function(e,t,n){n.r(t);var r=n(6540),a=n(8044),c=n(7164);t.default=()=>r.createElement(c.A,{sx:{backgroundColor:"background.default"}},r.createElement(a.A,null),r.createElement(c.A,{sx:{maxWidth:"1200px",margin:"0 auto",textAlign:"center",flexGrow:1}},r.createElement("h1",{style:{fontSize:"2.5rem",marginBottom:"20px"}},"Records")))}}]);
+//# sourceMappingURL=component---src-pages-records-js-feeee0a15c11305d8458.js.map
