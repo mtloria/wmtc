@@ -2,6 +2,7 @@ import * as React from 'react';
 import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper, Accordion, AccordionSummary, AccordionDetails, Typography, useMediaQuery, Box, TableSortLabel, CircularProgress } from '@mui/material';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import _ from 'lodash';
+import { fetchGoogleSheetCSV } from '../data/googleSheetFetcher';
 
 const MemberTable = () => {
   const isSmallScreen = useMediaQuery('(max-width:600px)');
@@ -15,19 +16,23 @@ const MemberTable = () => {
       try {
         const spreadsheetId = '1kG8qHF1NhJqjj07D30F4vhPDohi3KBDQkQZEX02tdWI';
         const sheetName = 'members'; // Replace with your actual sheet name
-        
-        // Using the Google Sheets published CSV format
-        const url = `https://docs.google.com/spreadsheets/d/${spreadsheetId}/gviz/tq?tqx=out:csv&sheet=${encodeURIComponent(sheetName)}`;
-        
-        const response = await fetch(url);
-        
-        if (!response.ok) {
-          throw new Error(`Error: ${response.status}`);
-        }
-        
-        const csvText = await response.text();
-        const parsedMembers = parseCSV(csvText);
-        setMembers(parsedMembers);
+        const parsedMembers = await fetchGoogleSheetCSV(spreadsheetId, sheetName);
+        // Add extra fields for display consistency
+        const membersWithExtras = parsedMembers.map((member, index) => {
+          const m = { ...member, id: index + 1 };
+          if (m.firstName && m.lastName) {
+            m.name = `${m.firstName} ${m.lastName}`;
+          }
+          if (m.locationCity || m.locationState) {
+            const city = m.locationCity || '';
+            const state = m.locationState || '';
+            m.location = city + (city && state ? ', ' : '') + state;
+          } else {
+            m.location = '';
+          }
+          return m;
+        });
+        setMembers(membersWithExtras);
         setLoading(false);
       } catch (error) {
         console.error('Error fetching members:', error);
@@ -38,41 +43,6 @@ const MemberTable = () => {
 
     fetchMembers();
   }, []);
-
-  // Simple CSV parser - assumes first row has headers
-  const parseCSV = (csvText) => {
-    const rows = csvText.split('\n');
-    const headers = rows[0].split(',').map(header => 
-      header.replace(/^"|"$/g, '') // Remove quotes around headers
-    );
-    
-    return rows.slice(1).map((row, index) => {
-      const values = row.split(',').map(val => val.replace(/^"|"$/g, ''));
-      const member = {
-        id: index + 1
-      };
-      
-      headers.forEach((header, i) => {
-        member[header] = values[i] || '';
-      });
-
-      // Add full name field for consistency with existing code
-      if (member.firstName && member.lastName) {
-        member.name = `${member.firstName} ${member.lastName}`;
-      }
-      
-      // Combine location fields
-      if (member.locationCity || member.locationState) {
-        const city = member.locationCity || '';
-        const state = member.locationState || '';
-        member.location = city + (city && state ? ', ' : '') + state;
-      } else {
-        member.location = '';
-      }
-      
-      return member;
-    });
-  };
 
   const handleSort = () => {
     setOrder((prevOrder) => (prevOrder === 'asc' ? 'desc' : 'asc'));
