@@ -1,14 +1,179 @@
 import * as React from 'react';
 import NavBar from '../components/navbar';
-import { Box } from '@mui/material';
+import { CircularProgress, Tabs, Tab, Box, Typography } from '@mui/material';
+import { fetchGoogleSheetCSV } from '../data/googleSheetFetcher';
+import RecordsTable from '../components/records-table';
+
+const spreadsheetId = '138hvDGLQMJmggHGqWQr_E29276fiE29VS0OQflFsgMk';
+const SHEETS = [
+  { label: 'Road Records', sheet: 'Records' },
+  { label: 'Track Records', sheet: 'Records' },
+  { label: 'Trail Records', sheet: 'Records' }
+];
 
 const RecordsPage = () => {
+  const [tab, setTab] = React.useState(0);
+  const [records, setRecords] = React.useState([]);
+  const [loading, setLoading] = React.useState(true);
+  const [error, setError] = React.useState(null);
+  const [order, setOrder] = React.useState('asc');
+  const [orderBy] = React.useState('distance');
+
+  React.useEffect(() => {
+    // Handle page reload quirks
+    document.body.style.margin = '0';
+    document.body.style.padding = '0';
+    document.title = 'Records | WMTC';
+
+    const fetchRecords = async () => {
+      setLoading(true);
+      setError(null);
+      try {
+        const data = await fetchGoogleSheetCSV(spreadsheetId, 'Records');
+        setRecords(data);
+      } catch (e) {
+        setError('Failed to load records. Please try again later.');
+      } finally {
+        setLoading(false);
+      }
+    };
+    fetchRecords();
+  }, [tab]);
+
+  const handleSort = () => {
+    setOrder(prev => (prev === 'asc' ? 'desc' : 'asc'));
+  };
+
+  // Filter records for each table based on Gender and Terrain (case-insensitive, match Google Sheet keys exactly)
+  // Also filter out rows with empty First Name and Last Name
+  const validRecords = records.filter(r =>
+    (r['First Name'] && r['First Name'].trim() !== '') ||
+    (r['Last Name'] && r['Last Name'].trim() !== '')
+  );
+
+  const menRoadRecords = validRecords.filter(r =>
+    r.Gender && r.Gender.trim().toLowerCase().startsWith('m') &&
+    r['Men\'s Records Terrain'] && r['Men\'s Records Terrain'].trim().toLowerCase() === 'road'
+  );
+  const menTrackRecords = validRecords.filter(r =>
+    r.Gender && r.Gender.trim().toLowerCase().startsWith('m') &&
+    r['Men\'s Records Terrain'] && r['Men\'s Records Terrain'].trim().toLowerCase() === 'track'
+  );
+  // Add trail records filtering (fix to use single quotes)
+  const menTrailRecords = validRecords.filter(r =>
+    r.Gender && r.Gender.trim().toLowerCase().startsWith('m') &&
+    r['Men\'s Records Terrain'] && r['Men\'s Records Terrain'].trim().toLowerCase() === 'trail'
+  );
+  const womenRoadRecords = validRecords.filter(r =>
+    r.Gender && r.Gender.trim().toLowerCase().startsWith('f') &&
+    r['Men\'s Records Terrain'] && r['Men\'s Records Terrain'].trim().toLowerCase() === 'road'
+  );
+  const womenTrackRecords = validRecords.filter(r =>
+    r.Gender && r.Gender.trim().toLowerCase().startsWith('f') &&
+    r['Men\'s Records Terrain'] && r['Men\'s Records Terrain'].trim().toLowerCase() === 'track'
+  );
+  const womenTrailRecords = validRecords.filter(r =>
+    r.Gender && r.Gender.trim().toLowerCase().startsWith('f') &&
+    r['Men\'s Records Terrain'] && r['Men\'s Records Terrain'].trim().toLowerCase() === 'trail'
+  );
+
+  // Pass the correct fields to RecordsTable by mapping to expected props
+  const mapRecord = r => {
+    let formattedDate = r['Date'] || '';
+    if (/^\d{1,2}\/\d{1,2}\/\d{4}$/.test(formattedDate)) {
+      const [month, day, year] = formattedDate.split('/');
+      const dateObj = new Date(`${year}-${month.padStart(2, '0')}-${day.padStart(2, '0')}`);
+      if (!isNaN(dateObj)) {
+        formattedDate = dateObj.toLocaleDateString('en-US', {
+          year: 'numeric', month: 'long', day: 'numeric'
+        });
+      }
+    }
+    return {
+      distance: r['Distance'] || '',
+      name: `${r['First Name'] || ''} ${r['Last Name'] || ''}`.trim(),
+      time: r['Time'] || '',
+      location: r['Event'] || '',
+      date: formattedDate
+    };
+  };
+
+  // Custom sort order for distances
+  const distanceOrder = [
+    '800m',
+    '1 mile',
+    '3K',
+    '5K',
+    '8K',
+    '10K',
+    '10 mile',
+    'Half Marathon',
+    'Marathon',
+    '50K',
+    '50 mile',
+    '100K',
+    '100 Mile'
+  ];
+
+  // Build a lookup map for normalized distance to index
+  const normalizeDistance = d => (d || '').replace(/\s+/g, '').replace(/mile(s)?/gi, 'mile').replace(/k/gi, 'k').replace(/\./g, '').toLowerCase();
+  const distanceIndexMap = Object.fromEntries(
+    distanceOrder.map((d, i) => [normalizeDistance(d), i])
+  );
+
+  // Simplified custom sort function
+  const customSort = (a, b) => {
+    const idxA = distanceIndexMap[normalizeDistance(a.distance)] ?? Infinity;
+    const idxB = distanceIndexMap[normalizeDistance(b.distance)] ?? Infinity;
+    return idxA - idxB;
+  };
+
+  // Always use customSort, ignore order state for distance
+  const showMen = tab === 0
+    ? menRoadRecords.map(mapRecord).sort(customSort)
+    : tab === 1
+      ? menTrackRecords.map(mapRecord).sort(customSort)
+      : menTrailRecords.map(mapRecord).sort(customSort);
+  const showWomen = tab === 0
+    ? womenRoadRecords.map(mapRecord).sort(customSort)
+    : tab === 1
+      ? womenTrackRecords.map(mapRecord).sort(customSort)
+      : womenTrailRecords.map(mapRecord).sort(customSort);
 
   return (
     <Box sx={{ backgroundColor: 'background.default' }}>
       <NavBar />
       <Box sx={{ maxWidth: '1200px', margin: '0 auto', textAlign: 'center', flexGrow: 1 }}>
         <h1 style={{ fontSize: '2.5rem', marginBottom: '20px' }}>Records</h1>
+        <Tabs value={tab} onChange={(_, v) => setTab(v)} centered sx={{ mb: 2 }}>
+          {SHEETS.map(s => <Tab key={s.sheet} label={s.label} />)}
+        </Tabs>
+        {loading ? (
+          <Box sx={{ display: 'flex', justifyContent: 'center', p: 3 }}>
+            <CircularProgress />
+          </Box>
+        ) : error ? (
+          <Box sx={{ p: 3, textAlign: 'center', color: 'error.main' }}>
+            <Typography>{error}</Typography>
+          </Box>
+        ) : (
+          <>
+            <Typography variant="h5" sx={{ mt: 3, mb: 1 }}>Men&apos;s Records</Typography>
+            <RecordsTable
+              records={showMen}
+              order={order}
+              orderBy={orderBy}
+              onSort={handleSort}
+            />
+            <Typography variant="h5" sx={{ mt: 4, mb: 1 }}>Women&apos;s Records</Typography>
+            <RecordsTable
+              records={showWomen}
+              order={order}
+              orderBy={orderBy}
+              onSort={handleSort}
+            />
+          </>
+        )}
       </Box>
     </Box>
   );
