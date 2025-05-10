@@ -146,7 +146,7 @@ const RecordsPage = () => {
       <Box sx={{ maxWidth: '1200px', margin: '0 auto', textAlign: 'center', flexGrow: 1 }}>
         <h1 style={{ fontSize: '2.5rem', marginBottom: '20px' }}>Records</h1>
         <Tabs value={tab} onChange={(_, v) => setTab(v)} centered sx={{ mb: 2 }}>
-          {SHEETS.map(s => <Tab key={s.sheet} label={s.label} />)}
+          {SHEETS.map((s, i) => <Tab key={s.label + '-' + i} label={s.label} />)}
         </Tabs>
         {loading ? (
           <Box sx={{ display: 'flex', justifyContent: 'center', p: 3 }}>
@@ -160,6 +160,7 @@ const RecordsPage = () => {
           <>
             <Typography variant="h5" sx={{ mt: 3, mb: 1 }}>Men&apos;s Records</Typography>
             <RecordsTable
+              key={'men-' + tab}
               records={showMen}
               order={order}
               orderBy={orderBy}
@@ -167,6 +168,7 @@ const RecordsPage = () => {
             />
             <Typography variant="h5" sx={{ mt: 4, mb: 1 }}>Women&apos;s Records</Typography>
             <RecordsTable
+              key={'women-' + tab}
               records={showWomen}
               order={order}
               orderBy={orderBy}
