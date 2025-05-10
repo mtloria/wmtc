@@ -5,11 +5,7 @@ import { fetchGoogleSheetCSV } from '../data/googleSheetFetcher';
 import RecordsTable from '../components/records-table';
 
 const spreadsheetId = '138hvDGLQMJmggHGqWQr_E29276fiE29VS0OQflFsgMk';
-const SHEETS = [
-  { label: 'Road Records', sheet: 'Records' },
-  { label: 'Track Records', sheet: 'Records' },
-  { label: 'Trail Records', sheet: 'Records' }
-];
+const TAB_LABELS = ['Road', 'Track', 'Trail'];
 
 const RecordsPage = () => {
   const [tab, setTab] = React.useState(0);
@@ -77,7 +73,6 @@ const RecordsPage = () => {
     r['Men\'s Records Terrain'] && r['Men\'s Records Terrain'].trim().toLowerCase() === 'trail'
   );
 
-  // Pass the correct fields to RecordsTable by mapping to expected props
   const mapRecord = r => {
     let formattedDate = r['Date'] || '';
     if (/^\d{1,2}\/\d{1,2}\/\d{4}$/.test(formattedDate)) {
@@ -115,20 +110,17 @@ const RecordsPage = () => {
     '100 Mile'
   ];
 
-  // Build a lookup map for normalized distance to index
   const normalizeDistance = d => (d || '').replace(/\s+/g, '').replace(/mile(s)?/gi, 'mile').replace(/k/gi, 'k').replace(/\./g, '').toLowerCase();
   const distanceIndexMap = Object.fromEntries(
     distanceOrder.map((d, i) => [normalizeDistance(d), i])
   );
 
-  // Simplified custom sort function
   const customSort = (a, b) => {
     const idxA = distanceIndexMap[normalizeDistance(a.distance)] ?? Infinity;
     const idxB = distanceIndexMap[normalizeDistance(b.distance)] ?? Infinity;
     return idxA - idxB;
   };
 
-  // Always use customSort, ignore order state for distance
   const showMen = tab === 0
     ? menRoadRecords.map(mapRecord).sort(customSort)
     : tab === 1
@@ -146,7 +138,7 @@ const RecordsPage = () => {
       <Box sx={{ maxWidth: '1200px', margin: '0 auto', textAlign: 'center', flexGrow: 1 }}>
         <h1 style={{ fontSize: '2.5rem', marginBottom: '20px' }}>Records</h1>
         <Tabs value={tab} onChange={(_, v) => setTab(v)} centered sx={{ mb: 2 }}>
-          {SHEETS.map((s, i) => <Tab key={s.label + '-' + i} label={s.label} />)}
+          {TAB_LABELS.map((label, i) => <Tab key={label + '-' + i} label={label} />)}
         </Tabs>
         {loading ? (
           <Box sx={{ display: 'flex', justifyContent: 'center', p: 3 }}>
@@ -158,18 +150,18 @@ const RecordsPage = () => {
           </Box>
         ) : (
           <>
-            <Typography variant="h5" sx={{ mt: 3, mb: 1 }}>Men&apos;s Records</Typography>
+            <Typography variant="h5" sx={{ mt: 3, mb: 1 }}>Women&apos;s Records</Typography>
             <RecordsTable
-              key={'men-' + tab}
-              records={showMen}
+              key={'women-' + tab}
+              records={showWomen}
               order={order}
               orderBy={orderBy}
               onSort={handleSort}
             />
-            <Typography variant="h5" sx={{ mt: 4, mb: 1 }}>Women&apos;s Records</Typography>
+            <Typography variant="h5" sx={{ mt: 4, mb: 1 }}>Men&apos;s Records</Typography>
             <RecordsTable
-              key={'women-' + tab}
-              records={showWomen}
+              key={'men-' + tab}
+              records={showMen}
               order={order}
               orderBy={orderBy}
               onSort={handleSort}
