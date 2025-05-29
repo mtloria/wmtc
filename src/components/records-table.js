@@ -1,8 +1,8 @@
 import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper, Typography, useMediaQuery, Box, Collapse, IconButton } from '@mui/material';
 import { KeyboardArrowDown, KeyboardArrowUp } from '@mui/icons-material';
 import * as React from 'react';
+import PropTypes from 'prop-types';
 
-// eslint-disable-next-line react/prop-types
 const RecordsTable = ({ records }) => {
   const isSmallScreen = useMediaQuery('(max-width:600px)');
   const [openRows, setOpenRows] = React.useState({});
@@ -84,6 +84,18 @@ const RecordsTable = ({ records }) => {
       </Table>
     </TableContainer>
   );
+};
+
+RecordsTable.propTypes = {
+  records: PropTypes.arrayOf(
+    PropTypes.shape({
+      distance: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+      time: PropTypes.string,
+      name: PropTypes.string,
+      location: PropTypes.string,
+      date: PropTypes.string,
+    })
+  ).isRequired,
 };
 
 export default RecordsTable;

@@ -1,4 +1,5 @@
 import * as React from 'react';
+import PropTypes from 'prop-types';
 import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper, useMediaQuery } from '@mui/material';
 
 // eslint-disable-next-line react/prop-types
@@ -60,6 +61,17 @@ const ResultsTable = ({ results }) => {
       </Table>
     </TableContainer>
   );
+};
+ResultsTable.propTypes = {
+  results: PropTypes.arrayOf(
+    PropTypes.shape({
+      name: PropTypes.string,
+      distance: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+      result: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+      event: PropTypes.string,
+      date: PropTypes.string,
+    })
+  ).isRequired,
 };
 
 export default ResultsTable;
