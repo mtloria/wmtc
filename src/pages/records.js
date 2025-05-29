@@ -3,6 +3,7 @@ import NavBar from '../components/navbar';
 import { CircularProgress, Tabs, Tab, Box, Typography } from '@mui/material';
 import { fetchGoogleSheetCSV } from '../data/googleSheetFetcher';
 import RecordsTable from '../components/records-table';
+import { fixUsDateString } from '../utils/fixUsDateString';
 
 const spreadsheetId = '138hvDGLQMJmggHGqWQr_E29276fiE29VS0OQflFsgMk';
 const TAB_LABELS = ['Road', 'Track', 'Trail'];
@@ -75,15 +76,7 @@ const RecordsPage = () => {
 
   const mapRecord = r => {
     let formattedDate = r['Date'] || '';
-    if (/^\d{1,2}\/\d{1,2}\/\d{4}$/.test(formattedDate)) {
-      const [month, day, year] = formattedDate.split('/');
-      const dateObj = new Date(`${year}-${month.padStart(2, '0')}-${day.padStart(2, '0')}`);
-      if (!isNaN(dateObj)) {
-        formattedDate = dateObj.toLocaleDateString('en-US', {
-          year: 'numeric', month: 'long', day: 'numeric'
-        });
-      }
-    }
+    formattedDate = fixUsDateString(formattedDate);
     return {
       distance: r['Distance'] || '',
       name: `${r['First Name'] || ''} ${r['Last Name'] || ''}`.trim(),

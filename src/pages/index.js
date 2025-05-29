@@ -81,6 +81,9 @@ export const Head = () => {
   case '/records/':
     title = 'Records' + pipeWMTC;
     break;
+  case '/results/':
+    title = 'Results' + pipeWMTC;
+    break;
   default:
     title = 'WMTC';
   }
