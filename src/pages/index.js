@@ -3,6 +3,10 @@ import NavBar from '../components/navbar';
 import { StaticImage } from 'gatsby-plugin-image';
 import AboutTheTeamPage from './about-the-team';
 import { useLocation } from '@reach/router';
+import { ThemeProvider } from '@mui/material/styles';
+import CssBaseline from '@mui/material/CssBaseline';
+import theme from '../theme';
+import { Box, Typography, Container } from '@mui/material';
 
 const IndexPage = () => {
   React.useEffect(() => {
@@ -25,37 +29,42 @@ const IndexPage = () => {
   }, []);
 
   return (
-    <main style={{ height: '200vh', position: 'relative' }}>
-      <StaticImage 
-        src='../images/brady-track-bw.jpeg'
-        alt='Background Image' 
-        style={{ 
-          position: 'absolute', 
-          top: 0, 
-          left: 0, 
-          width: '100%', 
-          height: '70%', 
-          objectFit: 'cover', 
-          opacity: opacity,
-          zIndex: -1 
-        }} 
-      />
-      <NavBar />
-      <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '70vh' }}>
-        <h1 style={{ color: 'white', textAlign: 'center' }}>Working Man&apos;s Track Club</h1>
-      </div>
-      <div 
-        style={{ 
-          height: '100vh', 
-          padding: '20px', 
-          marginTop: '60vh', 
-          opacity: 1 - opacity
-        }} 
-        id="about-section"
-      >
-        <AboutTheTeamPage />
-      </div>
-    </main>
+    <ThemeProvider theme={theme}>
+      <CssBaseline />
+      <main style={{ height: '200vh', position: 'relative' }}>
+        <StaticImage 
+          src='../images/brady-track-bw.jpeg'
+          alt='Background Image' 
+          style={{ 
+            position: 'absolute', 
+            top: 0, 
+            left: 0, 
+            width: '100%', 
+            height: '70%', 
+            objectFit: 'cover', 
+            opacity: opacity,
+            zIndex: -1 
+          }} 
+        />
+        <NavBar />
+        <Container sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '70vh' }}>
+          <Typography variant="h1" sx={{ color: 'white', textAlign: 'center', mt: { xs: 4, md: 6 } }} gutterBottom align="center">
+            Working Man&apos;s Track Club
+          </Typography>
+        </Container>
+        <div 
+          style={{ 
+            height: '100vh', 
+            padding: '20px', 
+            marginTop: '60vh', 
+            opacity: 1 - opacity
+          }} 
+          id="about-section"
+        >
+          <AboutTheTeamPage />
+        </div>
+      </main>
+    </ThemeProvider>
   );
 };
 

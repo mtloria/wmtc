@@ -1,9 +1,12 @@
 import * as React from 'react';
 import NavBar from '../components/navbar';
-import { CircularProgress, Box, Typography, List, ListItem, ListItemButton, ListItemText } from '@mui/material';
+import { CircularProgress, Box, Typography, List, ListItem, ListItemButton, ListItemText, Container } from '@mui/material';
 import { fetchGoogleSheetCSV } from '../data/googleSheetFetcher';
 import ResultsTable from '../components/results-table';
 import { fixUsDateString } from '../utils/fixUsDateString';
+import { ThemeProvider } from '@mui/material/styles';
+import CssBaseline from '@mui/material/CssBaseline';
+import theme from '../theme';
 
 const spreadsheetId = '138hvDGLQMJmggHGqWQr_E29276fiE29VS0OQflFsgMk';
 
@@ -107,45 +110,49 @@ const ResultsPage = () => {
   }, [years, selectedYear]);
 
   return (
-    <Box sx={{ backgroundColor: 'background.default', minHeight: '100vh', width: '100vw' }}>
-      <NavBar />
-      {/* Centered header and full-width divider */}
-      <Box sx={{ width: '100%', textAlign: 'center', mt: 2 }}>
-        <h1 style={{ fontSize: '2.5rem', marginBottom: 0, marginTop: 0, textAlign: 'center' }}>Results</h1>
-      </Box>
-      {/* Main content: sidebar and table, level with each other */}
-      <Box sx={{ maxWidth: '1400px', margin: '0 auto', display: 'flex', flexDirection: 'row', alignItems: 'stretch', justifyContent: 'center', mt: 4 }}>
-        {/* Sidebar */}
-        <Box sx={{ minWidth: 200, maxWidth: 220, mr: 4, display: 'flex', alignItems: 'stretch', height: '100%' }}>
-          <List sx={{ width: '100%', bgcolor: 'background.paper', borderRadius: 2, boxShadow: 1, height: '100%' }}>
-            {years.map(year => (
-              <ListItem key={year} disablePadding>
-                <ListItemButton
-                  selected={selectedYear === year}
-                  onClick={() => setSelectedYear(year)}
-                >
-                  <ListItemText primary={year} />
-                </ListItemButton>
-              </ListItem>
-            ))}
-          </List>
-        </Box>
-        {/* Main table content */}
-        <Box sx={{ flexGrow: 1, minWidth: 0, display: 'flex', alignItems: 'flex-start', p: 0 }}>
-          {loading ? (
-            <Box sx={{ display: 'flex', justifyContent: 'center', p: 3 }}>
-              <CircularProgress />
+    <ThemeProvider theme={theme}>
+      <CssBaseline />
+      <Box sx={{ backgroundColor: 'background.default', minHeight: '100vh', width: '100vw' }}>
+        <NavBar />
+        <Container>
+          <Typography variant="h1" gutterBottom align="center" sx={{ mt: { xs: 4, md: 6 } }}>
+            Results
+          </Typography>
+          {/* Main content: sidebar and table, level with each other */}
+          <Box sx={{ maxWidth: '1400px', margin: '0 auto', display: 'flex', flexDirection: 'row', alignItems: 'stretch', justifyContent: 'center', mt: 4 }}>
+            {/* Sidebar */}
+            <Box sx={{ minWidth: 200, maxWidth: 220, mr: 4, display: 'flex', alignItems: 'stretch', height: '100%' }}>
+              <List sx={{ width: '100%', bgcolor: 'background.paper', borderRadius: 2, boxShadow: 1, height: '100%' }}>
+                {years.map(year => (
+                  <ListItem key={year} disablePadding>
+                    <ListItemButton
+                      selected={selectedYear === year}
+                      onClick={() => setSelectedYear(year)}
+                    >
+                      <ListItemText primary={year} />
+                    </ListItemButton>
+                  </ListItem>
+                ))}
+              </List>
             </Box>
-          ) : error ? (
-            <Box sx={{ p: 3, textAlign: 'center', color: 'error.main' }}>
-              <Typography>{error}</Typography>
+            {/* Main table content */}
+            <Box sx={{ flexGrow: 1, minWidth: 0, display: 'flex', alignItems: 'flex-start', p: 0 }}>
+              {loading ? (
+                <Box sx={{ display: 'flex', justifyContent: 'center', p: 3 }}>
+                  <CircularProgress />
+                </Box>
+              ) : error ? (
+                <Box sx={{ p: 3, textAlign: 'center', color: 'error.main' }}>
+                  <Typography>{error}</Typography>
+                </Box>
+              ) : (
+                selectedYear && <ResultsTable results={resultsByYear[selectedYear]} />
+              )}
             </Box>
-          ) : (
-            selectedYear && <ResultsTable results={resultsByYear[selectedYear]} />
-          )}
-        </Box>
+          </Box>
+        </Container>
       </Box>
-    </Box>
+    </ThemeProvider>
   );
 };
 

@@ -1,6 +1,9 @@
 import * as React from 'react';
 import NavBar from '../components/navbar';
-import { TextField, Button, Box, Typography, CircularProgress } from '@mui/material';
+import { TextField, Button, Box, Typography, CircularProgress, Container } from '@mui/material';
+import { ThemeProvider } from '@mui/material/styles';
+import CssBaseline from '@mui/material/CssBaseline';
+import theme from '../theme';
 
 const ContactPage = () => {
   const [isSubmitting, setIsSubmitting] = React.useState(false);
@@ -39,52 +42,60 @@ const ContactPage = () => {
   };
 
   return (
-    <Box sx={{ backgroundColor: 'background.default' }}>
-      <NavBar />
-      <Box sx={{ maxWidth: '1200px', margin: '0 auto', textAlign: 'center', flexGrow: 1 }}>
-        <h1 style={{ fontSize: '2.5rem', marginBottom: '20px' }}>Contact Us</h1>
-        {isSubmitted ? (
-          <Typography variant="h6" color="success.main" textAlign="center">
-            Thank you! Your message has been sent successfully.
+    <ThemeProvider theme={theme}>
+      <CssBaseline />
+      <Box sx={{ backgroundColor: 'background.default' }}>
+        <NavBar />
+        <Container>
+          <Typography variant="h1" gutterBottom align="center" sx={{ mt: { xs: 4, md: 6 } }}>
+            Contact
           </Typography>
-        ) : (
-          <Box 
-            component="form" 
-            action="https://api.web3forms.com/submit" 
-            method="POST"
-            onSubmit={handleSubmit}
-            sx={{ display: 'flex', flexDirection: 'column', gap: 2, maxWidth: 400, margin: '0 auto' }}
-            noValidate 
-            autoComplete="off"
-          >
-            {/* flatball.manager@gmail test account */}
-            {/* <input type="hidden" name="access_key" value="bff71d1d-a864-4d22-8f6d-281e0368ca8c" /> */}
+          <Box sx={{ maxWidth: '1200px', margin: '0 auto', textAlign: 'center', flexGrow: 1 }}>
+            <h1 style={{ fontSize: '2.5rem', marginBottom: '20px' }}>Contact Us</h1>
+            {isSubmitted ? (
+              <Typography variant="h6" color="success.main" textAlign="center">
+                Thank you! Your message has been sent successfully.
+              </Typography>
+            ) : (
+              <Box 
+                component="form" 
+                action="https://api.web3forms.com/submit" 
+                method="POST"
+                onSubmit={handleSubmit}
+                sx={{ display: 'flex', flexDirection: 'column', gap: 2, maxWidth: 400, margin: '0 auto' }}
+                noValidate 
+                autoComplete="off"
+              >
+                {/* flatball.manager@gmail test account */}
+                {/* <input type="hidden" name="access_key" value="bff71d1d-a864-4d22-8f6d-281e0368ca8c" /> */}
 
-            <input type="hidden" name="access_key" value="b86b278a-0c15-446c-a5b2-78cdf6881974" />
-            
-            <TextField name="name" label="Name" variant="outlined" fullWidth required />
-            <TextField name="email" label="Email" type="email" variant="outlined" fullWidth required />
-            <TextField 
-              name="message" 
-              label="Message" 
-              variant="outlined" 
-              multiline 
-              rows={4} 
-              fullWidth 
-              required 
-            />
-            <Button 
-              variant="contained" 
-              color="primary" 
-              type="submit" 
-              disabled={isSubmitting}
-            >
-              {isSubmitting ? <CircularProgress size={24} /> : 'Submit'}
-            </Button>
+                <input type="hidden" name="access_key" value="b86b278a-0c15-446c-a5b2-78cdf6881974" />
+                
+                <TextField name="name" label="Name" variant="outlined" fullWidth required />
+                <TextField name="email" label="Email" type="email" variant="outlined" fullWidth required />
+                <TextField 
+                  name="message" 
+                  label="Message" 
+                  variant="outlined" 
+                  multiline 
+                  rows={4} 
+                  fullWidth 
+                  required 
+                />
+                <Button 
+                  variant="contained" 
+                  color="primary" 
+                  type="submit" 
+                  disabled={isSubmitting}
+                >
+                  {isSubmitting ? <CircularProgress size={24} /> : 'Submit'}
+                </Button>
+              </Box>
+            )}
           </Box>
-        )}
+        </Container>
       </Box>
-    </Box>
+    </ThemeProvider>
   );
 };
 

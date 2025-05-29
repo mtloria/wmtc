@@ -1,9 +1,12 @@
 import * as React from 'react';
 import NavBar from '../components/navbar';
-import { CircularProgress, Tabs, Tab, Box, Typography } from '@mui/material';
+import { CircularProgress, Tabs, Tab, Box, Typography, Container } from '@mui/material';
 import { fetchGoogleSheetCSV } from '../data/googleSheetFetcher';
 import RecordsTable from '../components/records-table';
 import { fixUsDateString } from '../utils/fixUsDateString';
+import { ThemeProvider } from '@mui/material/styles';
+import CssBaseline from '@mui/material/CssBaseline';
+import theme from '../theme';
 
 const spreadsheetId = '138hvDGLQMJmggHGqWQr_E29276fiE29VS0OQflFsgMk';
 const TAB_LABELS = ['Road', 'Track', 'Trail'];
@@ -126,43 +129,50 @@ const RecordsPage = () => {
       : womenTrailRecords.map(mapRecord).sort(customSort);
 
   return (
-    <Box sx={{ backgroundColor: 'background.default' }}>
-      <NavBar />
-      <Box sx={{ maxWidth: '1200px', margin: '0 auto', textAlign: 'center', flexGrow: 1 }}>
-        <h1 style={{ fontSize: '2.5rem', marginBottom: '20px' }}>Records</h1>
-        <Tabs value={tab} onChange={(_, v) => setTab(v)} centered sx={{ mb: 2 }}>
-          {TAB_LABELS.map((label, i) => <Tab key={label + '-' + i} label={label} />)}
-        </Tabs>
-        {loading ? (
-          <Box sx={{ display: 'flex', justifyContent: 'center', p: 3 }}>
-            <CircularProgress />
+    <ThemeProvider theme={theme}>
+      <CssBaseline />
+      <Box sx={{ backgroundColor: 'background.default' }}>
+        <NavBar />
+        <Container>
+          <Typography variant="h1" gutterBottom align="center" sx={{ mt: { xs: 4, md: 6 } }}>
+            Records
+          </Typography>
+          <Box sx={{ maxWidth: '1200px', margin: '0 auto', textAlign: 'center', flexGrow: 1 }}>
+            <Tabs value={tab} onChange={(_, v) => setTab(v)} centered sx={{ mb: 2 }}>
+              {TAB_LABELS.map((label, i) => <Tab key={label + '-' + i} label={label} />)}
+            </Tabs>
+            {loading ? (
+              <Box sx={{ display: 'flex', justifyContent: 'center', p: 3 }}>
+                <CircularProgress />
+              </Box>
+            ) : error ? (
+              <Box sx={{ p: 3, textAlign: 'center', color: 'error.main' }}>
+                <Typography>{error}</Typography>
+              </Box>
+            ) : (
+              <>
+                <Typography variant="h5" sx={{ mt: 3, mb: 1 }}>Women&apos;s Records</Typography>
+                <RecordsTable
+                  key={'women-' + tab}
+                  records={showWomen}
+                  order={order}
+                  orderBy={orderBy}
+                  onSort={handleSort}
+                />
+                <Typography variant="h5" sx={{ mt: 4, mb: 1 }}>Men&apos;s Records</Typography>
+                <RecordsTable
+                  key={'men-' + tab}
+                  records={showMen}
+                  order={order}
+                  orderBy={orderBy}
+                  onSort={handleSort}
+                />
+              </>
+            )}
           </Box>
-        ) : error ? (
-          <Box sx={{ p: 3, textAlign: 'center', color: 'error.main' }}>
-            <Typography>{error}</Typography>
-          </Box>
-        ) : (
-          <>
-            <Typography variant="h5" sx={{ mt: 3, mb: 1 }}>Women&apos;s Records</Typography>
-            <RecordsTable
-              key={'women-' + tab}
-              records={showWomen}
-              order={order}
-              orderBy={orderBy}
-              onSort={handleSort}
-            />
-            <Typography variant="h5" sx={{ mt: 4, mb: 1 }}>Men&apos;s Records</Typography>
-            <RecordsTable
-              key={'men-' + tab}
-              records={showMen}
-              order={order}
-              orderBy={orderBy}
-              onSort={handleSort}
-            />
-          </>
-        )}
+        </Container>
       </Box>
-    </Box>
+    </ThemeProvider>
   );
 };
 
