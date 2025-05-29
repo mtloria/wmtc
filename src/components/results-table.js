@@ -8,7 +8,7 @@ const ResultsTable = ({ results }) => {
 
   if (isSmallScreen) {
     return (
-      <TableContainer component={Paper} style={{ maxHeight: '60vh', margin: '10px', border: '1px solid #ccc', borderRadius: '8px' }}>
+      <TableContainer component={Paper} style={{ maxHeight: '60vh', margin: 0, border: '1px solid #ccc', borderRadius: '8px' }}>
         <Table size="small" stickyHeader>
           <TableHead>
             <TableRow style={{ backgroundColor: '#f5f5f5' }}>
@@ -16,6 +16,7 @@ const ResultsTable = ({ results }) => {
               <TableCell style={{ fontWeight: 'bold' }}>Distance</TableCell>
               <TableCell style={{ fontWeight: 'bold' }}>Result</TableCell>
               <TableCell style={{ fontWeight: 'bold' }}>Event</TableCell>
+              <TableCell style={{ fontWeight: 'bold' }}>Place</TableCell>
               <TableCell style={{ fontWeight: 'bold' }}>Date</TableCell>
             </TableRow>
           </TableHead>
@@ -26,6 +27,7 @@ const ResultsTable = ({ results }) => {
                 <TableCell>{row.distance}</TableCell>
                 <TableCell>{row.result}</TableCell>
                 <TableCell>{row.event}</TableCell>
+                <TableCell>{row.place}</TableCell>
                 <TableCell>{row.date}</TableCell>
               </TableRow>
             ))}
@@ -36,7 +38,7 @@ const ResultsTable = ({ results }) => {
   }
 
   return (
-    <TableContainer component={Paper} style={{ maxHeight: '60vh', margin: '20px', border: '1px solid #ddd' }}>
+    <TableContainer component={Paper} style={{ maxHeight: '60vh', margin: 0, border: '1px solid #ddd' }}>
       <Table stickyHeader>
         <TableHead>
           <TableRow style={{ backgroundColor: '#f5f5f5' }}>
@@ -44,6 +46,7 @@ const ResultsTable = ({ results }) => {
             <TableCell style={{ fontWeight: 'bold' }}>Distance</TableCell>
             <TableCell style={{ fontWeight: 'bold' }}>Result</TableCell>
             <TableCell style={{ fontWeight: 'bold' }}>Event</TableCell>
+            <TableCell style={{ fontWeight: 'bold' }}>Place</TableCell>
             <TableCell style={{ fontWeight: 'bold' }}>Date</TableCell>
           </TableRow>
         </TableHead>
@@ -54,6 +57,7 @@ const ResultsTable = ({ results }) => {
               <TableCell>{row.distance}</TableCell>
               <TableCell>{row.result}</TableCell>
               <TableCell>{row.event}</TableCell>
+              <TableCell>{row.place}</TableCell>
               <TableCell>{row.date}</TableCell>
             </TableRow>
           ))}
