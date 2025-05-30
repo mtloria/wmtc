@@ -1,10 +1,10 @@
 import * as React from 'react';
 import { CircularProgress, Box } from '@mui/material';
-import { fetchGoogleSheetCSV } from '../data/googleSheetFetcher';
+import { fetchGoogleSheetCSVWithHeaderRow } from '../data/googleSheetFetcher';
 import MembersTable from '../components/members-table';
 
-const spreadsheetId = '1kG8qHF1NhJqjj07D30F4vhPDohi3KBDQkQZEX02tdWI';
-const sheetName = 'members';
+const spreadsheetId = '138hvDGLQMJmggHGqWQr_E29276fiE29VS0OQflFsgMk';
+const sheetName = 'Memberships';
 
 const Members = () => {
   const [members, setMembers] = React.useState([]);
@@ -16,18 +16,38 @@ const Members = () => {
       setLoading(true);
       setError(null);
       try {
-        const parsedMembers = await fetchGoogleSheetCSV(spreadsheetId, sheetName);
+        // Use new fetcher, skip first row (headerRow=1)
+        const parsedMembers = await fetchGoogleSheetCSVWithHeaderRow(spreadsheetId, sheetName, 1);
+        const prColumns = [
+          '50 Mile',
+          '50K',
+          'Marathon',
+          'Half Marathon',
+          '10K',
+          '5K',
+          '1500m',
+          '800m',
+        ];
         const membersWithExtras = parsedMembers.map((member, index) => {
           const m = { ...member, id: index + 1 };
-          if (m.firstName && m.lastName) {
-            m.name = `${m.firstName} ${m.lastName}`;
+          // Use 'Full Name' from the sheet for display
+          m.displayName = m['Full Name'] || '';
+          m.jobTitle = m['Occupation'] || m.jobTitle || '';
+          m.location = m['Location'] || '';
+          // Find first PR distance with a value other than N/A
+          let foundPR = false;
+          for (const col of prColumns) {
+            const val = (member[col] || '').trim();
+            if (val && val.toLowerCase() !== 'n/a') {
+              m.PRDistance = col;
+              m.PRTime = val;
+              foundPR = true;
+              break;
+            }
           }
-          if (m.locationCity || m.locationState) {
-            const city = m.locationCity || '';
-            const state = m.locationState || '';
-            m.location = city + (city && state ? ', ' : '') + state;
-          } else {
-            m.location = '';
+          if (!foundPR) {
+            m.PRDistance = '';
+            m.PRTime = '';
           }
           return m;
         });
