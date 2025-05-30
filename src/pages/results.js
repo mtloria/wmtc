@@ -1,12 +1,13 @@
 import * as React from 'react';
 import NavBar from '../components/navbar';
-import { CircularProgress, Box, Typography, List, ListItem, ListItemButton, ListItemText, Container } from '@mui/material';
+import { CircularProgress, Box, Typography, List, ListItem, ListItemButton, ListItemText, Container, Accordion, AccordionSummary, AccordionDetails } from '@mui/material';
 import { fetchGoogleSheetCSV } from '../data/googleSheetFetcher';
 import ResultsTable from '../components/results-table';
 import { fixUsDateString } from '../utils/fixUsDateString';
 import { ThemeProvider } from '@mui/material/styles';
 import CssBaseline from '@mui/material/CssBaseline';
 import theme from '../theme';
+import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 
 const spreadsheetId = '138hvDGLQMJmggHGqWQr_E29276fiE29VS0OQflFsgMk';
 
@@ -15,6 +16,7 @@ const ResultsPage = () => {
   const [loading, setLoading] = React.useState(true);
   const [error, setError] = React.useState(null);
   const [selectedYear, setSelectedYear] = React.useState(null);
+  const [mobileExpandedYear, setMobileExpandedYear] = React.useState(null);
 
   React.useEffect(() => {
     // Handle page reload quirks
@@ -109,6 +111,8 @@ const ResultsPage = () => {
     }
   }, [years, selectedYear]);
 
+  const isMobile = typeof window !== 'undefined' && window.matchMedia('(max-width:600px)').matches;
+
   return (
     <ThemeProvider theme={theme}>
       <CssBaseline />
@@ -119,24 +123,26 @@ const ResultsPage = () => {
             Results
           </Typography>
           {/* Main content: sidebar and table, level with each other */}
-          <Box sx={{ maxWidth: '1400px', margin: '0 auto', display: 'flex', flexDirection: 'row', alignItems: 'stretch', justifyContent: 'center', mt: 4 }}>
-            {/* Sidebar */}
-            <Box sx={{ minWidth: 200, maxWidth: 220, mr: 4, display: 'flex', alignItems: 'stretch', height: '100%' }}>
-              <List sx={{ width: '100%', bgcolor: 'background.paper', borderRadius: 2, boxShadow: 1, height: '100%' }}>
-                {years.map(year => (
-                  <ListItem key={year} disablePadding>
-                    <ListItemButton
-                      selected={selectedYear === year}
-                      onClick={() => setSelectedYear(year)}
-                    >
-                      <ListItemText primary={year} />
-                    </ListItemButton>
-                  </ListItem>
-                ))}
-              </List>
-            </Box>
+          <Box sx={{ maxWidth: '1400px', margin: '0 auto', display: 'flex', flexDirection: isMobile ? 'column' : 'row', alignItems: 'stretch', justifyContent: 'center', mt: 4 }}>
+            {/* Sidebar (desktop only) */}
+            {!isMobile && (
+              <Box sx={{ minWidth: 200, maxWidth: 220, mr: 4, display: 'flex', alignItems: 'stretch', height: '100%' }}>
+                <List sx={{ width: '100%', bgcolor: 'background.paper', borderRadius: 2, boxShadow: 1, height: '100%' }}>
+                  {years.map(year => (
+                    <ListItem key={year} disablePadding>
+                      <ListItemButton
+                        selected={selectedYear === year}
+                        onClick={() => setSelectedYear(year)}
+                      >
+                        <ListItemText primary={year} />
+                      </ListItemButton>
+                    </ListItem>
+                  ))}
+                </List>
+              </Box>
+            )}
             {/* Main table content */}
-            <Box sx={{ flexGrow: 1, minWidth: 0, display: 'flex', alignItems: 'flex-start', p: 0 }}>
+            <Box sx={{ flexGrow: 1, minWidth: 0, display: 'flex', alignItems: 'flex-start', p: 0, width: '100%' }}>
               {loading ? (
                 <Box sx={{ display: 'flex', justifyContent: 'center', p: 3 }}>
                   <CircularProgress />
@@ -146,7 +152,22 @@ const ResultsPage = () => {
                   <Typography>{error}</Typography>
                 </Box>
               ) : (
-                selectedYear && <ResultsTable results={resultsByYear[selectedYear]} />
+                isMobile ? (
+                  <Box sx={{ width: '100%' }}>
+                    {years.map(year => (
+                      <Accordion key={year} sx={{ mb: 2 }} expanded={mobileExpandedYear === year} onChange={() => setMobileExpandedYear(mobileExpandedYear === year ? null : year)}>
+                        <AccordionSummary expandIcon={<ExpandMoreIcon />}>
+                          <Typography variant="h6">{year}</Typography>
+                        </AccordionSummary>
+                        <AccordionDetails>
+                          <ResultsTable results={resultsByYear[year]} />
+                        </AccordionDetails>
+                      </Accordion>
+                    ))}
+                  </Box>
+                ) : (
+                  selectedYear && <ResultsTable results={resultsByYear[selectedYear]} />
+                )
               )}
             </Box>
           </Box>

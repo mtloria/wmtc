@@ -1,10 +1,16 @@
 import * as React from 'react';
 import PropTypes from 'prop-types';
-import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper, useMediaQuery } from '@mui/material';
+import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper, useMediaQuery, Collapse, IconButton, Box } from '@mui/material';
+import { KeyboardArrowDown, KeyboardArrowUp } from '@mui/icons-material';
 
 // eslint-disable-next-line react/prop-types
 const ResultsTable = ({ results }) => {
   const isSmallScreen = useMediaQuery('(max-width:600px)');
+  const [openRows, setOpenRows] = React.useState({});
+
+  const handleExpandClick = idx => {
+    setOpenRows(prev => ({ ...prev, [idx]: !prev[idx] }));
+  };
 
   if (isSmallScreen) {
     return (
@@ -15,21 +21,38 @@ const ResultsTable = ({ results }) => {
               <TableCell style={{ fontWeight: 'bold' }}>Name</TableCell>
               <TableCell style={{ fontWeight: 'bold' }}>Distance</TableCell>
               <TableCell style={{ fontWeight: 'bold' }}>Result</TableCell>
-              <TableCell style={{ fontWeight: 'bold' }}>Event</TableCell>
-              <TableCell style={{ fontWeight: 'bold' }}>Place</TableCell>
-              <TableCell style={{ fontWeight: 'bold' }}>Date</TableCell>
+              <TableCell />
             </TableRow>
           </TableHead>
           <TableBody>
             {results.map((row, idx) => (
-              <TableRow key={idx} hover>
-                <TableCell>{row.name}</TableCell>
-                <TableCell>{row.distance}</TableCell>
-                <TableCell>{row.result}</TableCell>
-                <TableCell>{row.event}</TableCell>
-                <TableCell>{row.place}</TableCell>
-                <TableCell>{row.date}</TableCell>
-              </TableRow>
+              <React.Fragment key={idx}>
+                <TableRow hover>
+                  <TableCell>{row.name}</TableCell>
+                  <TableCell>{row.distance}</TableCell>
+                  <TableCell>{row.result}</TableCell>
+                  <TableCell>
+                    <IconButton
+                      aria-label="expand row"
+                      size="small"
+                      onClick={() => handleExpandClick(idx)}
+                    >
+                      {openRows[idx] ? <KeyboardArrowUp /> : <KeyboardArrowDown />}
+                    </IconButton>
+                  </TableCell>
+                </TableRow>
+                <TableRow>
+                  <TableCell style={{ paddingBottom: 0, paddingTop: 0 }} colSpan={4}>
+                    <Collapse in={openRows[idx]} timeout="auto" unmountOnExit>
+                      <Box margin={1}>
+                        <div><strong>Event:</strong> {row.event}</div>
+                        {row.place && <div><strong>Place:</strong> {row.place}</div>}
+                        <div><strong>Date:</strong> {row.date}</div>
+                      </Box>
+                    </Collapse>
+                  </TableCell>
+                </TableRow>
+              </React.Fragment>
             ))}
           </TableBody>
         </Table>

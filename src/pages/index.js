@@ -6,7 +6,7 @@ import { useLocation } from '@reach/router';
 import { ThemeProvider } from '@mui/material/styles';
 import CssBaseline from '@mui/material/CssBaseline';
 import theme from '../theme';
-import { Box, Typography, Container } from '@mui/material';
+import { Typography, Container } from '@mui/material';
 
 const IndexPage = () => {
   React.useEffect(() => {
