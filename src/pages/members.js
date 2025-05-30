@@ -16,7 +16,6 @@ const Members = () => {
       setLoading(true);
       setError(null);
       try {
-        // Use new fetcher, skip first row (headerRow=1)
         const parsedMembers = await fetchGoogleSheetCSVWithHeaderRow(spreadsheetId, sheetName, 1);
         const prColumns = [
           '50 Mile',
@@ -30,11 +29,9 @@ const Members = () => {
         ];
         const membersWithExtras = parsedMembers.map((member, index) => {
           const m = { ...member, id: index + 1 };
-          // Use 'Full Name' from the sheet for display
           m.displayName = m['Full Name'] || '';
           m.jobTitle = m['Occupation'] || m.jobTitle || '';
           m.location = m['Location'] || '';
-          // Find first PR distance with a value other than N/A
           let foundPR = false;
           for (const col of prColumns) {
             const val = (member[col] || '').trim();

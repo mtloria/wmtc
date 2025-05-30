@@ -22,7 +22,6 @@ const ResultsPage = () => {
   );
 
   React.useEffect(() => {
-    // Handle page reload quirks
     document.body.style.margin = '0';
     document.body.style.padding = '0';
     document.title = 'Results | WMTC';
@@ -50,25 +49,20 @@ const ResultsPage = () => {
     return () => media.removeEventListener('change', handleResize);
   }, []);
 
-  // Filter out rows with empty First Name and Last Name
   const validResults = results.filter(r =>
     (r['First Name'] && r['First Name'].trim() !== '') ||
     (r['Last Name'] && r['Last Name'].trim() !== '')
   );
 
-  // Map to table row format
   const mapResult = r => {
     let formattedDate = r['Race Date'] || '';
     formattedDate = fixUsDateString(formattedDate);
     let result = r['Result (HH:MM:SS.MS)'] || '';
-    // Remove leading zeroes from each time component (except for the hour if it's a single digit)
     if (result) {
       const [main, ms] = result.split('.');
       const parts = main.split(':');
-      // Remove leading zeroes from minutes and seconds
       const mins = parts[1] ? parts[1].replace(/^0+(?!$)/, '') : '';
       const secs = parts[2] ? parts[2].replace(/^0+(?!$)/, '') : '';
-      // If hour is 0 or missing, omit it
       let formatted = '';
       if (parts[0] && Number(parts[0]) > 0) {
         formatted = String(Number(parts[0])) + ':' + mins + ':' + secs;
@@ -77,7 +71,6 @@ const ResultsPage = () => {
       }
       result = formatted + (ms ? '.' + ms : '');
     }
-    // Add Place column, empty string if 'N/A'
     let place = r['Place (optional)'] && r['Place (optional)'].trim() !== 'N/A' ? r['Place (optional)'] : '';
     return {
       name: `${r['First Name'] || ''} ${r['Last Name'] || ''}`.trim(),
@@ -91,7 +84,6 @@ const ResultsPage = () => {
 
   const tableRows = validResults.map(mapResult);
 
-  // Group by year
   const resultsByYear = tableRows.reduce((acc, row) => {
     const year = row.date ? (new Date(row.date).getFullYear()) : 'Unknown';
     if (!acc[year]) acc[year] = [];
@@ -99,23 +91,19 @@ const ResultsPage = () => {
     return acc;
   }, {});
 
-  // Sort each year's results by date descending (most recent first)
   Object.keys(resultsByYear).forEach(year => {
     resultsByYear[year].sort((a, b) => {
-      // If either date is missing, keep original order
       if (!a.date || !b.date) return 0;
       return new Date(b.date) - new Date(a.date);
     });
   });
 
-  // Sort years descending, current year at the top
   const years = Object.keys(resultsByYear)
     .filter(y => y !== 'Unknown')
     .map(Number)
     .sort((a, b) => b - a);
   if (resultsByYear['Unknown']) years.push('Unknown');
 
-  // Set default selected year to the current year if available
   React.useEffect(() => {
     if (years.length > 0 && !selectedYear) {
       setSelectedYear(years[0]);
@@ -131,9 +119,7 @@ const ResultsPage = () => {
           <Typography variant="h1" gutterBottom align="center" sx={{ mt: { xs: 4, md: 6 } }}>
             Results
           </Typography>
-          {/* Main content: sidebar and table, level with each other */}
           <Box sx={{ maxWidth: '1400px', margin: '0 auto', display: 'flex', flexDirection: isMobile ? 'column' : 'row', alignItems: 'stretch', justifyContent: 'center', mt: 4 }}>
-            {/* Sidebar (desktop only) */}
             {!isMobile && (
               <Box sx={{ minWidth: 200, maxWidth: 220, mr: 4, display: 'flex', alignItems: 'stretch', height: '100%' }}>
                 <List sx={{ width: '100%', bgcolor: 'background.paper', borderRadius: 2, boxShadow: 1, height: '100%' }}>
@@ -150,7 +136,6 @@ const ResultsPage = () => {
                 </List>
               </Box>
             )}
-            {/* Main table content */}
             <Box sx={{ flexGrow: 1, minWidth: 0, display: 'flex', alignItems: 'flex-start', p: 0, width: '100%' }}>
               {loading ? (
                 <Box sx={{ display: 'flex', justifyContent: 'center', p: 3 }}>

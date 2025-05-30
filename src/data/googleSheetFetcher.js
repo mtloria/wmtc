@@ -1,5 +1,3 @@
-// Generic Google Sheet CSV fetcher and parser
-
 /**
  * Fetches and parses a Google Sheet as CSV.
  * @param {string} spreadsheetId - The Google Spreadsheet ID.
@@ -7,7 +5,6 @@
  * @returns {Promise<Array<Object>>} Parsed array of row objects.
  */
 export async function fetchGoogleSheetCSV(spreadsheetId, sheetName) {
-  // Using the Google Sheets published CSV format
   const url = `https://docs.google.com/spreadsheets/d/${spreadsheetId}/gviz/tq?tqx=out:csv&sheet=${encodeURIComponent(sheetName)}`;
   const response = await fetch(url);
   if (!response.ok) {
@@ -34,7 +31,6 @@ export async function fetchGoogleSheetCSVWithHeaderRow(spreadsheetId, sheetName,
   return parseCSVWithHeaderRow(csvText, headerRow);
 }
 
-// Improved CSV parser - handles quoted fields with commas
 function parseCSV(csvText) {
   const rows = csvText.split('\n').filter(Boolean);
   if (rows.length === 0) return [];
@@ -47,7 +43,7 @@ function parseCSV(csvText) {
       if (char === '"') {
         if (inQuotes && row[i + 1] === '"') {
           current += '"';
-          i++; // skip next quote
+          i++;
         } else {
           inQuotes = !inQuotes;
         }
@@ -72,7 +68,6 @@ function parseCSV(csvText) {
   });
 }
 
-// Helper: parse CSV with custom header row
 function parseCSVWithHeaderRow(csvText, headerRow = 0) {
   const rows = csvText.split('\n').filter(Boolean);
   if (rows.length <= headerRow) return [];

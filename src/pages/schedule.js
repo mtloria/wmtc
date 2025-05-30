@@ -9,7 +9,6 @@ const SchedulePage = () => {
     <ThemeProvider theme={theme}>
       <CssBaseline />
       <NavBar />
-      {/* Content removed as per the suggested changes */}
     </ThemeProvider>
   );
 };

@@ -2,7 +2,6 @@ import * as React from 'react';
 import PropTypes from 'prop-types';
 import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper, useMediaQuery, Collapse, Box } from '@mui/material';
 
-// eslint-disable-next-line react/prop-types
 const ResultsTable = ({ results }) => {
   const isSmallScreen = useMediaQuery('(max-width:600px)');
   const [openRows, setOpenRows] = React.useState({});
@@ -14,7 +13,6 @@ const ResultsTable = ({ results }) => {
     return () => clearTimeout(timer);
   }, [showOverlay]);
 
-  // Reset openRows when switching between mobile/desktop
   React.useEffect(() => {
     setOpenRows({});
   }, [isSmallScreen]);
@@ -24,7 +22,6 @@ const ResultsTable = ({ results }) => {
   };
 
   if (isSmallScreen) {
-    // Overlay message state
     return (
       <Box sx={{ position: 'relative' }}>
         {showOverlay && (

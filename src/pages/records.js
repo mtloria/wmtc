@@ -20,7 +20,6 @@ const RecordsPage = () => {
   const [orderBy] = React.useState('distance');
 
   React.useEffect(() => {
-    // Handle page reload quirks
     document.body.style.margin = '0';
     document.body.style.padding = '0';
     document.title = 'Records | WMTC';
@@ -44,8 +43,6 @@ const RecordsPage = () => {
     setOrder(prev => (prev === 'asc' ? 'desc' : 'asc'));
   };
 
-  // Filter records for each table based on Gender and Terrain (case-insensitive, match Google Sheet keys exactly)
-  // Also filter out rows with empty First Name and Last Name
   const validRecords = records.filter(r =>
     (r['First Name'] && r['First Name'].trim() !== '') ||
     (r['Last Name'] && r['Last Name'].trim() !== '')
@@ -59,7 +56,6 @@ const RecordsPage = () => {
     r.Gender && r.Gender.trim().toLowerCase().startsWith('m') &&
     r['Men\'s Records Terrain'] && r['Men\'s Records Terrain'].trim().toLowerCase() === 'track'
   );
-  // Add trail records filtering (fix to use single quotes)
   const menTrailRecords = validRecords.filter(r =>
     r.Gender && r.Gender.trim().toLowerCase().startsWith('m') &&
     r['Men\'s Records Terrain'] && r['Men\'s Records Terrain'].trim().toLowerCase() === 'trail'
@@ -89,7 +85,6 @@ const RecordsPage = () => {
     };
   };
 
-  // Custom sort order for distances
   const distanceOrder = [
     '800m',
     '1 mile',

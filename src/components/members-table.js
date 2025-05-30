@@ -104,7 +104,6 @@ const MembersTable = ({ members }) => {
           <TableBody>
             {sortedMembers.map((member) => {
               const isExpanded = expandedRow === member.id;
-              // Collect all PRs for this member
               const allPRs = prColumns
                 .map(col => ({ distance: col, time: member[col] }))
                 .filter(pr => pr.time && pr.time.trim().toLowerCase() !== 'n/a');
