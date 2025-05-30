@@ -32,23 +32,27 @@ const NavBar = () => {
   };
 
   return (
-    <AppBar position="static" style={{ backgroundColor: 'rgba(0, 0, 0, 0.7)' }}>
+    <AppBar position="static" style={{ backgroundColor: 'rgba(0, 0, 0, 0.85)' }}>
       <Container maxWidth="xl">
-        <Toolbar disableGutters variant="dense">
-          <IconButton onClick={() => navigate('/')} style={{ padding: 0 }}>
-            <StaticImage src='../images/WMTC_Logo.png' alt='WMTC Logo' style={{ width: '50px', height: '50px' }} placeholder="blurred" />
-          </IconButton>
-          <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' }, justifyContent: 'flex-end' }}>
-            <Button key='About' sx={{ my: 2, color: 'white', display: 'block', '&:hover': { backgroundColor: 'rgba(255, 255, 255, 0.1)' } }} onClick={handleAboutClick}>About</Button>
-            <Button key='Meet the Team' sx={{ my: 2, color: 'white', display: 'block', '&:hover': { backgroundColor: 'rgba(255, 255, 255, 0.1)' } }} onClick={() => { navigate('/meet-the-team'); }}>Meet the Team</Button>
-            <Box sx={{ my: 2, color: 'white', display: 'block', position: 'relative' }} onMouseEnter={(e) => e.currentTarget.children[1].style.display = 'block'} onMouseLeave={(e) => e.currentTarget.children[1].style.display = 'none'}>
-              <Button key='Events' sx={{ color: 'white', '&:hover': { backgroundColor: 'rgba(255, 255, 255, 0.1)' } }}>Other</Button>
-              <Box sx={{ display: 'none', position: 'absolute', top: '100%', left: 0, backgroundColor: 'rgba(0, 0, 0, 0.7)', zIndex: 1, minWidth: '150px' }}>
-                <Button key='Results' sx={{ color: 'white', display: 'block', width: '100%', '&:hover': { backgroundColor: 'rgba(255, 255, 255, 0.1)' } }} onClick={() => { navigate('/results'); }}>Results</Button>
-                <Button key='Records' sx={{ color: 'white', display: 'block', width: '100%', '&:hover': { backgroundColor: 'rgba(255, 255, 255, 0.1)' } }} onClick={() => { navigate('/records'); }}>Records</Button>
-              </Box>
-            </Box>
-            <Button key='Contact' sx={{ my: 2, color: 'white', display: 'block', '&:hover': { backgroundColor: 'rgba(255, 255, 255, 0.1)' } }} onClick={() => { navigate('/contact'); }}>Contact</Button>
+        <Toolbar disableGutters variant="dense" sx={{ minHeight: 64 }}>
+          <Box sx={{ display: 'flex', alignItems: 'center', mr: 2 }}>
+            <IconButton onClick={() => navigate('/')} style={{ padding: 0, marginRight: 8 }}>
+              <StaticImage src='../images/WMTC_Logo.png' alt='WMTC Logo' style={{ width: '48px', height: '48px' }} placeholder="blurred" />
+            </IconButton>
+            <Button
+              key='Home'
+              sx={{ color: 'white', fontWeight: 600, fontSize: '1.1rem', letterSpacing: 1, ml: 1, '&:hover': { backgroundColor: 'rgba(255,255,255,0.08)' } }}
+              onClick={() => navigate('/')}
+            >
+              Home
+            </Button>
+          </Box>
+          <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' }, justifyContent: 'flex-end', gap: 1 }}>
+            <Button key='About' sx={{ color: 'white', fontWeight: 500, '&:hover': { backgroundColor: 'rgba(255,255,255,0.08)' } }} onClick={handleAboutClick}>About</Button>
+            <Button key='Meet the Team' sx={{ color: 'white', fontWeight: 500, '&:hover': { backgroundColor: 'rgba(255,255,255,0.08)' } }} onClick={() => { navigate('/meet-the-team'); }}>Meet the Team</Button>
+            <Button key='Results' sx={{ color: 'white', fontWeight: 500, '&:hover': { backgroundColor: 'rgba(255,255,255,0.08)' } }} onClick={() => { navigate('/results'); }}>Results</Button>
+            <Button key='Records' sx={{ color: 'white', fontWeight: 500, '&:hover': { backgroundColor: 'rgba(255,255,255,0.08)' } }} onClick={() => { navigate('/records'); }}>Records</Button>
+            <Button key='Contact' sx={{ color: 'white', fontWeight: 500, '&:hover': { backgroundColor: 'rgba(255,255,255,0.08)' } }} onClick={() => { navigate('/contact'); }}>Contact</Button>
           </Box>
           <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' }, justifyContent: 'flex-end' }}>
             <IconButton
@@ -67,7 +71,7 @@ const NavBar = () => {
               open={open}
               onClose={toggleDrawer(false)}
             >
-              <Box>
+              <Box sx={{ width: 220 }} role="presentation" onClick={toggleDrawer(false)} onKeyDown={toggleDrawer(false)}>
                 <List>
                   <ListItem>
                     <ListItemButton onClick={() => navigate('/')}>Home</ListItemButton>
