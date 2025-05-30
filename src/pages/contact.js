@@ -55,30 +55,30 @@ const ContactPage = () => {
             sx={{
               display: 'flex',
               flexDirection: { xs: 'column', md: 'row' },
-              alignItems: 'flex-start',
-              justifyContent: 'center',
+              alignItems: 'center', // changed from 'flex-start' to 'center' for vertical centering
+              justifyContent: 'center', // already present for horizontal centering
               gap: 6,
               mt: 4,
               mb: 6,
             }}
           >
-            <Box sx={{ flex: '0 0 auto', display: 'flex', flexDirection: 'column', alignItems: 'center', width: { xs: '100%', md: 540 } }}>
+            <Box sx={{ flex: '0 0 auto', display: 'flex', flexDirection: 'column', alignItems: 'center', width: { xs: '100%', md: 740 } }}>
               <StaticImage
                 src="../images/Shamrock_Shuffle_2025.jpg"
                 alt="Shamrock Shuffle 2025 promotional"
                 placeholder="blurred"
                 layout="constrained"
-                style={{ width: '100%', maxWidth: 540, borderRadius: 12, marginBottom: 12, boxShadow: '0 2px 12px rgba(0,0,0,0.08)' }}
+                style={{ width: '100%', maxWidth: 740, borderRadius: 12, marginBottom: 12, boxShadow: '0 2px 12px rgba(0,0,0,0.08)' }}
               />
               <Typography variant="caption" color="text.secondary" sx={{ mb: 2, textAlign: 'center' }}>
                 Shamrock Shuffle 2025
               </Typography>
             </Box>
-            <Box sx={{ flex: 1, display: 'flex', justifyContent: 'center' }}>
+            <Box sx={{ flex: 1, display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
               <Box
                 sx={{
                   width: '100%',
-                  maxWidth: 400,
+                  maxWidth: 540, // increased from 400 to 540 to better balance with the image
                   background: 'background.paper',
                   boxShadow: 3,
                   borderRadius: 3,
