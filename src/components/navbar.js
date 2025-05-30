@@ -44,7 +44,6 @@ const NavBar = () => {
             <Box sx={{ my: 2, color: 'white', display: 'block', position: 'relative' }} onMouseEnter={(e) => e.currentTarget.children[1].style.display = 'block'} onMouseLeave={(e) => e.currentTarget.children[1].style.display = 'none'}>
               <Button key='Events' sx={{ color: 'white', '&:hover': { backgroundColor: 'rgba(255, 255, 255, 0.1)' } }}>Other</Button>
               <Box sx={{ display: 'none', position: 'absolute', top: '100%', left: 0, backgroundColor: 'rgba(0, 0, 0, 0.7)', zIndex: 1, minWidth: '150px' }}>
-                <Button key='Schedule' sx={{ color: 'white', display: 'block', width: '100%', '&:hover': { backgroundColor: 'rgba(255, 255, 255, 0.1)' } }} onClick={() => { navigate('/schedule'); }}>Schedule</Button>
                 <Button key='Results' sx={{ color: 'white', display: 'block', width: '100%', '&:hover': { backgroundColor: 'rgba(255, 255, 255, 0.1)' } }} onClick={() => { navigate('/results'); }}>Results</Button>
                 <Button key='Records' sx={{ color: 'white', display: 'block', width: '100%', '&:hover': { backgroundColor: 'rgba(255, 255, 255, 0.1)' } }} onClick={() => { navigate('/records'); }}>Records</Button>
               </Box>
@@ -78,9 +77,6 @@ const NavBar = () => {
                   </ListItem>
                   <ListItem>
                     <ListItemButton onClick={() => navigate('/meet-the-team')}>Meet the Team</ListItemButton>
-                  </ListItem>
-                  <ListItem>
-                    <ListItemButton onClick={() => navigate('/schedule')}>Schedule</ListItemButton>
                   </ListItem>
                   <ListItem>
                     <ListItemButton onClick={() => navigate('/results')}>Results</ListItemButton>
