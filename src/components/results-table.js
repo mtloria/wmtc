@@ -6,6 +6,18 @@ import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper
 const ResultsTable = ({ results }) => {
   const isSmallScreen = useMediaQuery('(max-width:600px)');
   const [openRows, setOpenRows] = React.useState({});
+  const [showOverlay, setShowOverlay] = React.useState(true);
+
+  React.useEffect(() => {
+    if (!showOverlay) return;
+    const timer = setTimeout(() => setShowOverlay(false), 2500);
+    return () => clearTimeout(timer);
+  }, [showOverlay]);
+
+  // Reset openRows when switching between mobile/desktop
+  React.useEffect(() => {
+    setOpenRows({});
+  }, [isSmallScreen]);
 
   const handleExpandClick = idx => {
     setOpenRows(prev => ({ ...prev, [idx]: !prev[idx] }));
@@ -13,13 +25,6 @@ const ResultsTable = ({ results }) => {
 
   if (isSmallScreen) {
     // Overlay message state
-    const [showOverlay, setShowOverlay] = React.useState(true);
-    React.useEffect(() => {
-      if (!showOverlay) return;
-      const timer = setTimeout(() => setShowOverlay(false), 2500);
-      return () => clearTimeout(timer);
-    }, [showOverlay]);
-
     return (
       <Box sx={{ position: 'relative' }}>
         {showOverlay && (

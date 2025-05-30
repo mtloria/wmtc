@@ -17,6 +17,9 @@ const ResultsPage = () => {
   const [error, setError] = React.useState(null);
   const [selectedYear, setSelectedYear] = React.useState(null);
   const [mobileExpandedYear, setMobileExpandedYear] = React.useState(null);
+  const [isMobile, setIsMobile] = React.useState(
+    typeof window !== 'undefined' ? window.matchMedia('(max-width:600px)').matches : false
+  );
 
   React.useEffect(() => {
     // Handle page reload quirks
@@ -37,6 +40,14 @@ const ResultsPage = () => {
       }
     };
     fetchResults();
+  }, []);
+
+  React.useEffect(() => {
+    const media = window.matchMedia('(max-width:600px)');
+    const handleResize = () => setIsMobile(media.matches);
+    media.addEventListener('change', handleResize);
+    setIsMobile(media.matches);
+    return () => media.removeEventListener('change', handleResize);
   }, []);
 
   // Filter out rows with empty First Name and Last Name
@@ -110,8 +121,6 @@ const ResultsPage = () => {
       setSelectedYear(years[0]);
     }
   }, [years, selectedYear]);
-
-  const isMobile = typeof window !== 'undefined' && window.matchMedia('(max-width:600px)').matches;
 
   return (
     <ThemeProvider theme={theme}>
