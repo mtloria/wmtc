@@ -7,11 +7,11 @@ import { GatsbyImage } from 'gatsby-plugin-image';
 import teamLeaders from '../data/team-leaders';
 import EliteCard from '../components/elite-card';
 import { getImageByName } from '../utils/imageDataParser';
-import MemberTable from '../components/member-table';
 import EliteStandards from '../components/elite-standards';
 import { ThemeProvider } from '@mui/material/styles';
 import CssBaseline from '@mui/material/CssBaseline';
 import theme from '../theme';
+import Members from './members';
 
 const MeetTheTeamPage = () => {
   const [selectedLeader, setSelectedLeader] = React.useState(null);
@@ -112,7 +112,7 @@ const MeetTheTeamPage = () => {
           )}
           {tabIndex === 2 && (
             <Box>
-              <MemberTable />
+              <Members />
             </Box>
           )}
           <Modal open={!!selectedLeader} onClose={handleClose}>
