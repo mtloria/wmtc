@@ -66,7 +66,7 @@ const AboutTheTeamPage = () => {
                 What&apos;s Next
               </Typography>
               <Typography variant="body1" color="textSecondary" component="p">
-                Going into 2024, WMTC is seeking more team-oriented racing, whether that means hitting the roads or the cross country course. We also have a couple athletes competing in the Olympic Trials in Orlando! And, as always, we&apos;re working to gain attention as an elite training group both here in the Midwest and across the country.
+                2024 was another great year for WMTC. We had a strong showing at the Shamrock Shuffle 8K Elite Team Competition on both the men&apos;s and women&apos;s side, sent two athletes to the Olympic Marathon Trials, and added several new members from multiple locations. In 2025 we aim to continue gaining attention as an elite training group both here in the Midwest and across the country.
               </Typography>
               <Typography variant="body1" color="textSecondary" component="p" sx={{ mt: 2 }}>
                 With all that said, what&apos;s next for WMTC? Growth! We hope to see you out there on the roads, track, trails, etc.!
