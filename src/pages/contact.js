@@ -4,6 +4,7 @@ import { TextField, Button, Box, Typography, CircularProgress, Container } from 
 import { ThemeProvider } from '@mui/material/styles';
 import CssBaseline from '@mui/material/CssBaseline';
 import theme from '../theme';
+import { StaticImage } from 'gatsby-plugin-image';
 
 const ContactPage = () => {
   const [isSubmitting, setIsSubmitting] = React.useState(false);
@@ -48,50 +49,87 @@ const ContactPage = () => {
         <NavBar />
         <Container>
           <Typography variant="h1" gutterBottom align="center" sx={{ mt: { xs: 4, md: 6 } }}>
-            Contact
+            Contact Us!
           </Typography>
-          <Box sx={{ maxWidth: '1200px', margin: '0 auto', textAlign: 'center', flexGrow: 1 }}>
-            <h1 style={{ fontSize: '2.5rem', marginBottom: '20px' }}>Contact Us</h1>
-            {isSubmitted ? (
-              <Typography variant="h6" color="success.main" textAlign="center">
-                Thank you! Your message has been sent successfully.
+          <Box
+            sx={{
+              display: 'flex',
+              flexDirection: { xs: 'column', md: 'row' },
+              alignItems: 'flex-start',
+              justifyContent: 'center',
+              gap: 6,
+              mt: 4,
+              mb: 6,
+            }}
+          >
+            <Box sx={{ flex: '0 0 auto', display: 'flex', flexDirection: 'column', alignItems: 'center', width: { xs: '100%', md: 540 } }}>
+              <StaticImage
+                src="../images/Shamrock_Shuffle_2025.jpg"
+                alt="Shamrock Shuffle 2025 promotional"
+                placeholder="blurred"
+                layout="constrained"
+                style={{ width: '100%', maxWidth: 540, borderRadius: 12, marginBottom: 12, boxShadow: '0 2px 12px rgba(0,0,0,0.08)' }}
+              />
+              <Typography variant="caption" color="text.secondary" sx={{ mb: 2, textAlign: 'center' }}>
+                Shamrock Shuffle 2025
               </Typography>
-            ) : (
-              <Box 
-                component="form" 
-                action="https://api.web3forms.com/submit" 
-                method="POST"
-                onSubmit={handleSubmit}
-                sx={{ display: 'flex', flexDirection: 'column', gap: 2, maxWidth: 400, margin: '0 auto' }}
-                noValidate 
-                autoComplete="off"
+            </Box>
+            <Box sx={{ flex: 1, display: 'flex', justifyContent: 'center' }}>
+              <Box
+                sx={{
+                  width: '100%',
+                  maxWidth: 400,
+                  background: 'background.paper',
+                  boxShadow: 3,
+                  borderRadius: 3,
+                  p: 4,
+                  display: 'flex',
+                  flexDirection: 'column',
+                  alignItems: 'center',
+                }}
               >
-                {/* flatball.manager@gmail test account */}
-                {/* <input type="hidden" name="access_key" value="bff71d1d-a864-4d22-8f6d-281e0368ca8c" /> */}
+                {isSubmitted ? (
+                  <Typography variant="h6" color="success.main" textAlign="center">
+                    Thank you! Your message has been sent successfully.
+                  </Typography>
+                ) : (
+                  <Box
+                    component="form"
+                    action="https://api.web3forms.com/submit"
+                    method="POST"
+                    onSubmit={handleSubmit}
+                    sx={{ display: 'flex', flexDirection: 'column', gap: 2, width: '100%' }}
+                    noValidate
+                    autoComplete="off"
+                  >
+                    {/* flatball.manager@gmail test account */}
+                    {/* <input type="hidden" name="access_key" value="bff71d1d-a864-4d22-8f6d-281e0368ca8c" /> */}
 
-                <input type="hidden" name="access_key" value="b86b278a-0c15-446c-a5b2-78cdf6881974" />
-                
-                <TextField name="name" label="Name" variant="outlined" fullWidth required />
-                <TextField name="email" label="Email" type="email" variant="outlined" fullWidth required />
-                <TextField 
-                  name="message" 
-                  label="Message" 
-                  variant="outlined" 
-                  multiline 
-                  rows={4} 
-                  fullWidth 
-                  required 
-                />
-                <Button 
-                  variant="contained" 
-                  color="primary" 
-                  type="submit" 
-                  disabled={isSubmitting}
-                >
-                  {isSubmitting ? <CircularProgress size={24} /> : 'Submit'}
-                </Button>
+                    <input type="hidden" name="access_key" value="b86b278a-0c15-446c-a5b2-78cdf6881974" />
+                    <TextField name="name" label="Name" variant="outlined" fullWidth required />
+                    <TextField name="email" label="Email" type="email" variant="outlined" fullWidth required />
+                    <TextField
+                      name="message"
+                      label="Message"
+                      variant="outlined"
+                      multiline
+                      rows={4}
+                      fullWidth
+                      required
+                    />
+                    <Button
+                      variant="contained"
+                      color="primary"
+                      type="submit"
+                      disabled={isSubmitting}
+                      sx={{ minHeight: 48 }}
+                    >
+                      {isSubmitting ? <CircularProgress size={24} /> : 'Submit'}
+                    </Button>
+                  </Box>
+                )}
               </Box>
-            )}
+            </Box>
           </Box>
         </Container>
       </Box>
