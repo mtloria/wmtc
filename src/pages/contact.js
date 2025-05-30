@@ -68,6 +68,7 @@ const ContactPage = () => {
                 alt="Shamrock Shuffle 2025 promotional"
                 placeholder="blurred"
                 layout="constrained"
+                loading="eager"
                 style={{ width: '100%', maxWidth: 740, borderRadius: 12, marginBottom: 12, boxShadow: '0 2px 12px rgba(0,0,0,0.08)' }}
               />
               <Typography variant="caption" color="text.secondary" sx={{ mb: 2, textAlign: 'center' }}>
