@@ -58,11 +58,11 @@ const theme = createTheme({
   components: {
     MuiContainer: {
       defaultProps: {
-        maxWidth: 'lg',
+        maxWidth: 'xl', // allow wider containers
       },
       styleOverrides: {
         root: {
-          maxWidth: '1200px',
+          maxWidth: '1600px', // increase max width for results table
           marginLeft: 'auto',
           marginRight: 'auto',
           paddingLeft: '16px',

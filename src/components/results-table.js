@@ -14,7 +14,7 @@ const ResultsTable = ({ results }) => {
 
   if (isSmallScreen) {
     return (
-      <TableContainer component={Paper} style={{ maxHeight: '60vh', margin: 0, border: '1px solid #ccc', borderRadius: '8px' }}>
+      <TableContainer component={Paper} style={{ maxHeight: '70vh', margin: 0, border: '1px solid #ccc', borderRadius: '8px' }}>
         <Table size="small" stickyHeader>
           <TableHead>
             <TableRow style={{ backgroundColor: '#f5f5f5' }}>
@@ -61,7 +61,7 @@ const ResultsTable = ({ results }) => {
   }
 
   return (
-    <TableContainer component={Paper} style={{ maxHeight: '60vh', margin: 0, border: '1px solid #ddd' }}>
+    <TableContainer component={Paper} style={{ maxHeight: '70vh', margin: 0, border: '1px solid #ddd' }}>
       <Table stickyHeader>
         <TableHead>
           <TableRow style={{ backgroundColor: '#f5f5f5' }}>

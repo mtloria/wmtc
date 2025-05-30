@@ -75,7 +75,7 @@ const MeetTheTeamPage = () => {
       <CssBaseline />
       <Box sx={{ backgroundColor: 'background.default' }}>
         <NavBar />
-        <Container>
+        <Container sx={{ maxWidth: '1200px !important' }}>
           <Typography variant="h1" gutterBottom align="center" sx={{ mt: { xs: 4, md: 6 } }}>
             Meet the Team
           </Typography>
