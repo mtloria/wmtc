@@ -27,15 +27,21 @@ const MembersTable = ({ members }) => {
               <Typography sx={{ fontWeight: 600 }}>{member.displayName}</Typography>
             </AccordionSummary>
             <AccordionDetails style={{ backgroundColor: '#fafafa' }}>
-              <Typography><strong>Location:</strong> {member.location}</Typography>
-              <Box sx={{ mt: 1 }}>
-                <Typography sx={{ fontWeight: 500, mb: 0.5 }}>5 Most Recent Events:</Typography>
-                <Table size="small">
+              {member.location && (
+                <Box sx={{ mb: 1 }}>
+                  <Typography><strong>Location:</strong> {member.location}</Typography>
+                </Box>
+              )}
+              <Box sx={{ overflowX: 'auto' }}>
+                <Typography sx={{ fontWeight: 700, mb: 0.5 }}>Recent Results:</Typography>
+                <Table size="small" sx={{ minWidth: 500 }}>
                   <TableHead>
                     <TableRow>
-                      <TableCell>Event</TableCell>
-                      <TableCell>Distance</TableCell>
-                      <TableCell>Time</TableCell>
+                      <TableCell sx={{ fontWeight: 700 }}>Event</TableCell>
+                      <TableCell sx={{ fontWeight: 700 }}>Distance</TableCell>
+                      <TableCell sx={{ fontWeight: 700 }}>Time</TableCell>
+                      <TableCell sx={{ fontWeight: 700 }}>Date</TableCell>
+                      <TableCell sx={{ fontWeight: 700 }}>Place</TableCell>
                     </TableRow>
                   </TableHead>
                   <TableBody>
@@ -44,6 +50,8 @@ const MembersTable = ({ members }) => {
                         <TableCell>{ev.event}</TableCell>
                         <TableCell>{ev.distance}</TableCell>
                         <TableCell>{ev.time}</TableCell>
+                        <TableCell>{ev.date}</TableCell>
+                        <TableCell>{ev.place}</TableCell>
                       </TableRow>
                     ))}
                   </TableBody>
