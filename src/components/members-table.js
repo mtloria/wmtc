@@ -49,7 +49,6 @@ const MembersTable = ({ members }) => {
                 <Typography sx={{ fontWeight: 600 }}>{member.displayName}</Typography>
               </AccordionSummary>
               <AccordionDetails style={{ backgroundColor: '#fafafa' }}>
-                <Typography><strong>Occupation:</strong> {member.jobTitle}</Typography>
                 <Typography><strong>Location:</strong> {member.location}</Typography>
                 {allPRs.length > 0 && (
                   <Box sx={{ mt: 1 }}>
@@ -94,7 +93,6 @@ const MembersTable = ({ members }) => {
                   Name
                 </TableSortLabel>
               </TableCell>
-              <TableCell style={{ fontWeight: 'bold' }}>Occupation</TableCell>
               <TableCell style={{ fontWeight: 'bold' }}>Location</TableCell>
               <TableCell style={{ fontWeight: 'bold' }}>PR Distance</TableCell>
               <TableCell style={{ fontWeight: 'bold' }}>PR Time</TableCell>
@@ -123,7 +121,6 @@ const MembersTable = ({ members }) => {
                     onMouseLeave={hasExpandable ? e => e.currentTarget.style.background = isExpanded ? '#e3f2fd' : '' : undefined}
                   >
                     <TableCell>{member.displayName}</TableCell>
-                    <TableCell>{member.jobTitle}</TableCell>
                     <TableCell>{member.location}</TableCell>
                     <TableCell>{member.PRDistance}</TableCell>
                     <TableCell>{member.PRTime}</TableCell>
@@ -133,7 +130,7 @@ const MembersTable = ({ members }) => {
                   </TableRow>
                   {isExpanded && hasExpandable && (
                     <TableRow>
-                      <TableCell colSpan={6} style={{ background: '#fafafa', padding: 0 }}>
+                      <TableCell colSpan={5} style={{ background: '#fafafa', padding: 0 }}>
                         <Box sx={{ p: 2 }}>
                           <strong>PRs:</strong>
                           <Table size="small" sx={{ mt: 1 }}>
@@ -171,7 +168,6 @@ MembersTable.propTypes = {
     PropTypes.shape({
       id: PropTypes.number,
       name: PropTypes.string,
-      jobTitle: PropTypes.string,
     })
   ).isRequired,
 };
