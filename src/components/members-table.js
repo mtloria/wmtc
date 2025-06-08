@@ -7,6 +7,7 @@ import _ from 'lodash';
 const MembersTable = ({ members }) => {
   const isSmallScreen = useMediaQuery('(max-width:600px)');
   const [order, setOrder] = React.useState('asc');
+  const [expandedRow, setExpandedRow] = React.useState(null);
 
   const handleSort = () => {
     setOrder((prevOrder) => (prevOrder === 'asc' ? 'desc' : 'asc'));
@@ -18,56 +19,60 @@ const MembersTable = ({ members }) => {
     [order]
   );
 
-  if (isSmallScreen) {
-    return (
-      <Box style={{ maxHeight: '70vh', overflowY: 'auto', border: '1px solid #ccc', borderRadius: '8px', margin: '10px' }}>
-        {sortedMembers.map((member) => (
-          <Accordion key={member.id} style={{ margin: '0', border: '1px solid #ddd', borderRadius: '4px' }}>
-            <AccordionSummary expandIcon={<KeyboardArrowDownIcon />} style={{ backgroundColor: '#f5f5f5' }}>
-              <Typography sx={{ fontWeight: 600 }}>{member.displayName}</Typography>
-            </AccordionSummary>
-            <AccordionDetails style={{ backgroundColor: '#fafafa' }}>
-              {member.location && (
-                <Box sx={{ mb: 1 }}>
-                  <Typography><strong>Location:</strong> {member.location}</Typography>
-                </Box>
-              )}
-              <Box sx={{ overflowX: 'auto' }}>
-                <Typography sx={{ fontWeight: 700, mb: 0.5 }}>Recent Results:</Typography>
-                <Table size="small" sx={{ minWidth: 500 }}>
-                  <TableHead>
-                    <TableRow>
-                      <TableCell sx={{ fontWeight: 700 }}>Event</TableCell>
-                      <TableCell sx={{ fontWeight: 700 }}>Distance</TableCell>
-                      <TableCell sx={{ fontWeight: 700 }}>Time</TableCell>
-                      <TableCell sx={{ fontWeight: 700 }}>Date</TableCell>
-                      <TableCell sx={{ fontWeight: 700 }}>Place</TableCell>
-                    </TableRow>
-                  </TableHead>
-                  <TableBody>
-                    {(member.RecentEvents || []).map((ev, idx) => (
-                      <TableRow key={idx}>
-                        <TableCell>{ev.event}</TableCell>
-                        <TableCell>{ev.distance}</TableCell>
-                        <TableCell>{ev.time}</TableCell>
-                        <TableCell>{ev.date}</TableCell>
-                        <TableCell>{ev.place}</TableCell>
-                      </TableRow>
-                    ))}
-                  </TableBody>
-                </Table>
-              </Box>
-            </AccordionDetails>
-          </Accordion>
-        ))}
-      </Box>
-    );
-  }
-
-  const [expandedRow, setExpandedRow] = React.useState(null);
   const handleRowClick = (id) => {
     setExpandedRow(expandedRow === id ? null : id);
   };
+
+  if (isSmallScreen) {
+    if (!Array.isArray(sortedMembers)) return null;
+    return (
+      <Box style={{ maxHeight: '70vh', overflowY: 'auto', border: '1px solid #ccc', borderRadius: '8px', margin: '10px' }}>
+        {sortedMembers.map((member, idx) => {
+          if (!member) return null;
+          return (
+            <Accordion key={member.id != null ? member.id : `${member.displayName || 'unknown'}-${idx}`}
+              style={{ margin: '0', border: '1px solid #ddd', borderRadius: '4px' }}>
+              <AccordionSummary expandIcon={<KeyboardArrowDownIcon />} style={{ backgroundColor: '#f5f5f5' }}>
+                <Typography sx={{ fontWeight: 600 }}>{member.displayName}</Typography>
+              </AccordionSummary>
+              <AccordionDetails style={{ backgroundColor: '#fafafa' }}>
+                {member.location && (
+                  <Box sx={{ mb: 1 }}>
+                    <Typography><strong>Location:</strong> {member.location}</Typography>
+                  </Box>
+                )}
+                <Box sx={{ overflowX: 'auto' }}>
+                  <Typography sx={{ fontWeight: 700, mb: 0.5 }}>Recent Results:</Typography>
+                  <Table size="small" sx={{ minWidth: 500 }}>
+                    <TableHead>
+                      <TableRow>
+                        <TableCell sx={{ fontWeight: 700 }}>Event</TableCell>
+                        <TableCell sx={{ fontWeight: 700 }}>Distance</TableCell>
+                        <TableCell sx={{ fontWeight: 700 }}>Time</TableCell>
+                        <TableCell sx={{ fontWeight: 700 }}>Date</TableCell>
+                        <TableCell sx={{ fontWeight: 700 }}>Place</TableCell>
+                      </TableRow>
+                    </TableHead>
+                    <TableBody>
+                      {(member.RecentEvents || []).map((ev, idx2) => (
+                        <TableRow key={idx2}>
+                          <TableCell>{ev.event}</TableCell>
+                          <TableCell>{ev.distance}</TableCell>
+                          <TableCell>{ev.time}</TableCell>
+                          <TableCell>{ev.date}</TableCell>
+                          <TableCell>{ev.place}</TableCell>
+                        </TableRow>
+                      ))}
+                    </TableBody>
+                  </Table>
+                </Box>
+              </AccordionDetails>
+            </Accordion>
+          );
+        })}
+      </Box>
+    );
+  }
 
   return (
     <>
