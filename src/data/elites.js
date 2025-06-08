@@ -1,12 +1,5 @@
 const elites = [
   {
-    name: 'Lauren Bailey',
-    image: 'lauren_bailey',
-    location: 'Westfield, IN',
-    jobTitle: 'Home Site Coordinator: IN State Health Department',
-    prs: ['5K: 15:45', '6K: 20:14 (XC)', '10K: 33:53'],
-  },
-  {
     name: 'Lucy Dobbs',
     image: 'lucy_dobbs',
     location: 'Indianapolis, IN',
@@ -19,13 +12,6 @@ const elites = [
     location: 'Indianapolis, IN',
     jobTitle: 'GDP Engineer: Rolls Royce',
     prs: ['5K: 13:48', '10K: 28:42', 'Half Marathon: 1:04:14'],
-  },
-  {
-    name: 'Quinn Gallagher',
-    image: 'quinn_gallagher',
-    location: 'Grand Rapids, MI',
-    jobTitle: 'Mechanical Engineer',
-    prs: ['8K (XC): 23:37', '10K (XC): 30:33', 'Mile: 4:10'],
   },
   {
     name: 'Johnnie Guy',
@@ -49,11 +35,25 @@ const elites = [
     prs: ['Mile: 3:59.37', '5K: 13:41', 'Half Marathon: 1:04:33'],
   },
   {
+    name: 'Dylan Parker',
+    image: '',
+    location: 'TBD',
+    jobTitle: 'TBD',
+    prs: ['TBD'],
+  },
+  {
     name: 'Damon Pruett',
     image: 'damon_pruett',
     location: 'Indianapolis, IN',
     jobTitle: 'Quality Assurance: Continental General',
     prs: ['5K: 14:33', '10K: 29:52', 'Half Marathon: 1:06:20', 'Marathon: 2:22:48'],
+  },
+  {
+    name: 'Stephanie Sherman',
+    image: '',
+    location: 'TBD',
+    jobTitle: 'TBD',
+    prs: ['TBD'],
   },
   {
     name: 'Hannah Stoffel',
