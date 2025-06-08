@@ -3,7 +3,7 @@ import NavBar from '../components/navbar';
 import { CircularProgress, Box, Typography, List, ListItem, ListItemButton, ListItemText, Container, Accordion, AccordionSummary, AccordionDetails } from '@mui/material';
 import { fetchGoogleSheetCSV } from '../data/googleSheetFetcher';
 import ResultsTable from '../components/results-table';
-import { fixUsDateString } from '../utils/fixUsDateString';
+import { fixUsDateString, formatResultTime } from '../utils/formatters';
 import { ThemeProvider } from '@mui/material/styles';
 import CssBaseline from '@mui/material/CssBaseline';
 import theme from '../theme';
@@ -58,19 +58,7 @@ const ResultsPage = () => {
     let formattedDate = r['Race Date'] || '';
     formattedDate = fixUsDateString(formattedDate);
     let result = r['Result (HH:MM:SS.MS)'] || '';
-    if (result) {
-      const [main, ms] = result.split('.');
-      const parts = main.split(':');
-      const mins = parts[1] ? parts[1] : '';
-      const secs = parts[2] ? parts[2] : '';
-      let formatted = '';
-      if (parts[0] && Number(parts[0]) > 0) {
-        formatted = String(Number(parts[0])) + ':' + mins + ':' + secs;
-      } else {
-        formatted = mins + ':' + secs;
-      }
-      result = formatted + (ms ? '.' + ms : '');
-    }
+    result = formatResultTime(result);
     let place = r['Place (optional)'] && r['Place (optional)'].trim() !== 'N/A' ? r['Place (optional)'] : '';
     return {
       name: `${r['First Name'] || ''} ${r['Last Name'] || ''}`.trim(),

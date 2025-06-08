@@ -11,3 +11,18 @@ export function fixUsDateString(dateString) {
   }
   return dateString;
 }
+
+export function formatResultTime(result) {
+  if (!result) return '';
+  const [main, ms] = result.split('.');
+  const parts = main.split(':');
+  const mins = parts[1] ? parts[1] : '';
+  const secs = parts[2] ? parts[2] : '';
+  let formatted = '';
+  if (parts[0] && Number(parts[0]) > 0) {
+    formatted = String(Number(parts[0])) + ':' + mins + ':' + secs;
+  } else {
+    formatted = mins + ':' + secs;
+  }
+  return formatted + (ms ? '.' + ms : '');
+}

@@ -1,6 +1,7 @@
 import * as React from 'react';
 import PropTypes from 'prop-types';
 import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper, useMediaQuery, Collapse, Box } from '@mui/material';
+import { formatResultTime } from '../utils/formatters';
 
 const ResultsTable = ({ results }) => {
   const isSmallScreen = useMediaQuery('(max-width:600px)');
@@ -73,7 +74,7 @@ const ResultsTable = ({ results }) => {
                   >
                     <TableCell>{row.name}</TableCell>
                     <TableCell>{row.distance}</TableCell>
-                    <TableCell>{row.result}</TableCell>
+                    <TableCell>{formatResultTime(row.result)}</TableCell>
                     <TableCell />
                   </TableRow>
                   <TableRow>
@@ -114,7 +115,7 @@ const ResultsTable = ({ results }) => {
             <TableRow key={idx} hover>
               <TableCell>{row.name}</TableCell>
               <TableCell>{row.distance}</TableCell>
-              <TableCell>{row.result}</TableCell>
+              <TableCell>{formatResultTime(row.result)}</TableCell>
               <TableCell>{row.event}</TableCell>
               <TableCell>{row.place}</TableCell>
               <TableCell>{row.date}</TableCell>

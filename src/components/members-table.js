@@ -3,6 +3,7 @@ import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import PropTypes from 'prop-types';
 import _ from 'lodash';
+import { formatResultTime } from '../utils/formatters';
 
 const MembersTable = ({ members }) => {
   const isSmallScreen = useMediaQuery('(max-width:600px)');
@@ -58,7 +59,7 @@ const MembersTable = ({ members }) => {
                         <TableRow key={idx2}>
                           <TableCell>{ev.event}</TableCell>
                           <TableCell>{ev.distance}</TableCell>
-                          <TableCell>{ev.time}</TableCell>
+                          <TableCell>{formatResultTime(ev.time)}</TableCell>
                           <TableCell>{ev.date}</TableCell>
                           <TableCell>{ev.place}</TableCell>
                         </TableRow>
@@ -113,7 +114,7 @@ const MembersTable = ({ members }) => {
                     <TableCell>{member.location}</TableCell>
                     <TableCell>{member.RecentEvent}</TableCell>
                     <TableCell>{member.RecentEventDistance}</TableCell>
-                    <TableCell>{member.RecentEventTime}</TableCell>
+                    <TableCell>{formatResultTime(member.RecentEventTime)}</TableCell>
                     <TableCell width={40} align="center">
                       {isExpanded ? <KeyboardArrowDownIcon /> : null}
                     </TableCell>
@@ -139,7 +140,7 @@ const MembersTable = ({ members }) => {
                                   <TableRow key={idx}>
                                     <TableCell>{ev.event}</TableCell>
                                     <TableCell>{ev.distance}</TableCell>
-                                    <TableCell>{ev.time}</TableCell>
+                                    <TableCell>{formatResultTime(ev.time)}</TableCell>
                                     <TableCell>{ev.date}</TableCell>
                                     <TableCell>{ev.place}</TableCell>
                                   </TableRow>

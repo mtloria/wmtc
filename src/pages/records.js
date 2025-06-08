@@ -3,7 +3,7 @@ import NavBar from '../components/navbar';
 import { CircularProgress, Tabs, Tab, Box, Typography, Container } from '@mui/material';
 import { fetchGoogleSheetCSV } from '../data/googleSheetFetcher';
 import RecordsTable from '../components/records-table';
-import { fixUsDateString } from '../utils/fixUsDateString';
+import { fixUsDateString } from '../utils/formatters';
 import { ThemeProvider } from '@mui/material/styles';
 import CssBaseline from '@mui/material/CssBaseline';
 import theme from '../theme';
