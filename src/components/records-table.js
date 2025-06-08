@@ -59,7 +59,7 @@ const RecordsTable = ({ records }) => {
   }
 
   return (
-    <TableContainer component={Paper} style={{ maxHeight: '60vh', margin: '20px', border: '1px solid #ddd' }}>
+    <TableContainer component={Paper} style={{ margin: '20px', border: '1px solid #ddd' }}>
       <Table stickyHeader>
         <TableHead>
           <TableRow style={{ backgroundColor: '#f5f5f5' }}>
