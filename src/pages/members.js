@@ -27,7 +27,23 @@ const Members = () => {
           '1500m',
           '800m',
         ];
-        const membersWithExtras = parsedMembers.map((member, index) => {
+        const now = new Date();
+        const currentYear = now.getFullYear();
+        const currentMonth = now.getMonth(); // 0-based, June is 5
+        const paidCol = `${currentYear} Membership Paid?`;
+        const prevPaidCol = `${currentYear - 1} Membership Paid?`;
+        const filteredMembers = parsedMembers.filter(member => {
+          const paid = (member[paidCol] || '').toLowerCase();
+          const prevPaid = (member[prevPaidCol] || '').toLowerCase();
+          const isPaid = paid === 'yes' || paid === 'y' || paid === 'true' || paid === 'paid';
+          const isPrevPaid = prevPaid === 'yes' || prevPaid === 'y' || prevPaid === 'true' || prevPaid === 'paid';
+          if (currentMonth >= 5) { // June or later
+            return isPaid;
+          } else {
+            return isPaid || isPrevPaid;
+          }
+        });
+        const membersWithExtras = filteredMembers.map((member, index) => {
           const m = { ...member, id: index + 1 };
           m.displayName = m['Full Name'] || '';
           m.location = m['Location'] || '';
