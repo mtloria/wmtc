@@ -47,11 +47,11 @@ const EliteCard = () => {
         {elitesWithImages.map((elite, index) => (
           <Box key={index} m={2} width={300} height={525}>
             <Card style={{ height: '100%', display: 'flex', flexDirection: 'column', boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1)', border: '1px solid #ddd' }}>
-              <CardMedia style={{ flex: '1 0 auto' }}>
+              <CardMedia style={{ flex: '0 0 auto', height: 220, display: 'flex', alignItems: 'stretch', justifyContent: 'center', overflow: 'hidden' }}>
                 <GatsbyImage
                   image={elite.image}
                   alt={elite.name}
-                  style={{ height: '100%', objectFit: 'contain' }}
+                  style={{ width: 'auto', height: '100%', maxWidth: '100%', objectFit: 'contain' }}
                 />
               </CardMedia>
               <CardContent style={{ flex: '0 1 auto' }}>

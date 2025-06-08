@@ -15,7 +15,7 @@ const elites = [
   },
   {
     name: 'Johnnie Guy',
-    image: 'johnnie_guy',
+    image: 'WMTC_Logo_elites',
     location: 'Leopold, IN',
     jobTitle: 'Mechanical Engineer',
     prs: ['5K: 13:39', '10K: 28:34', 'Half Marathon: 1:06:47'],
@@ -36,7 +36,7 @@ const elites = [
   },
   {
     name: 'Dylan Parker',
-    image: '',
+    image: 'WMTC_Logo_elites',
     location: 'TBD',
     jobTitle: 'TBD',
     prs: ['TBD'],
@@ -50,7 +50,7 @@ const elites = [
   },
   {
     name: 'Stephanie Sherman',
-    image: '',
+    image: 'WMTC_Logo_elites',
     location: 'TBD',
     jobTitle: 'TBD',
     prs: ['TBD'],
