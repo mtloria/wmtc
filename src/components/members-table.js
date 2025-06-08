@@ -1,33 +1,15 @@
 import * as React from 'react';
-import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper, Accordion, AccordionSummary, AccordionDetails, Typography, useMediaQuery, Box, TableSortLabel } from '@mui/material';
+import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper, Accordion, AccordionSummary, AccordionDetails, Typography, useMediaQuery, Box, TableSortLabel, Collapse } from '@mui/material';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
-import KeyboardArrowRightIcon from '@mui/icons-material/KeyboardArrowRight';
 import PropTypes from 'prop-types';
 import _ from 'lodash';
-import { useState } from 'react';
-
-const prColumns = [
-  '50 Mile',
-  '50K',
-  'Marathon',
-  'Half Marathon',
-  '10K',
-  '5K',
-  '1500m',
-  '800m',
-];
 
 const MembersTable = ({ members }) => {
   const isSmallScreen = useMediaQuery('(max-width:600px)');
   const [order, setOrder] = React.useState('asc');
-  const [expandedRow, setExpandedRow] = useState(null);
 
   const handleSort = () => {
     setOrder((prevOrder) => (prevOrder === 'asc' ? 'desc' : 'asc'));
-  };
-
-  const handleRowClick = (id) => {
-    setExpandedRow(expandedRow === id ? null : id);
   };
 
   const sortedMembers = _.orderBy(
@@ -39,50 +21,50 @@ const MembersTable = ({ members }) => {
   if (isSmallScreen) {
     return (
       <Box style={{ maxHeight: '70vh', overflowY: 'auto', border: '1px solid #ccc', borderRadius: '8px', margin: '10px' }}>
-        {sortedMembers.map((member) => {
-          const allPRs = prColumns
-            .map(col => ({ distance: col, time: member[col] }))
-            .filter(pr => pr.time && pr.time.trim().toLowerCase() !== 'n/a');
-          return (
-            <Accordion key={member.id} style={{ margin: '0', border: '1px solid #ddd', borderRadius: '4px' }}>
-              <AccordionSummary expandIcon={allPRs.length > 0 ? <KeyboardArrowDownIcon /> : null} style={{ backgroundColor: '#f5f5f5' }}>
-                <Typography sx={{ fontWeight: 600 }}>{member.displayName}</Typography>
-              </AccordionSummary>
-              <AccordionDetails style={{ backgroundColor: '#fafafa' }}>
-                <Typography><strong>Location:</strong> {member.location}</Typography>
-                {allPRs.length > 0 && (
-                  <Box sx={{ mt: 1 }}>
-                    <Typography sx={{ fontWeight: 500, mb: 0.5 }}>PRs:</Typography>
-                    <Table size="small">
-                      <TableHead>
-                        <TableRow>
-                          <TableCell>Distance</TableCell>
-                          <TableCell>Time</TableCell>
-                        </TableRow>
-                      </TableHead>
-                      <TableBody>
-                        {allPRs.map(pr => (
-                          <TableRow key={pr.distance}>
-                            <TableCell>{pr.distance}</TableCell>
-                            <TableCell>{pr.time}</TableCell>
-                          </TableRow>
-                        ))}
-                      </TableBody>
-                    </Table>
-                  </Box>
-                )}
-              </AccordionDetails>
-            </Accordion>
-          );
-        })}
+        {sortedMembers.map((member) => (
+          <Accordion key={member.id} style={{ margin: '0', border: '1px solid #ddd', borderRadius: '4px' }}>
+            <AccordionSummary expandIcon={<KeyboardArrowDownIcon />} style={{ backgroundColor: '#f5f5f5' }}>
+              <Typography sx={{ fontWeight: 600 }}>{member.displayName}</Typography>
+            </AccordionSummary>
+            <AccordionDetails style={{ backgroundColor: '#fafafa' }}>
+              <Typography><strong>Location:</strong> {member.location}</Typography>
+              <Box sx={{ mt: 1 }}>
+                <Typography sx={{ fontWeight: 500, mb: 0.5 }}>5 Most Recent Events:</Typography>
+                <Table size="small">
+                  <TableHead>
+                    <TableRow>
+                      <TableCell>Event</TableCell>
+                      <TableCell>Distance</TableCell>
+                      <TableCell>Time</TableCell>
+                    </TableRow>
+                  </TableHead>
+                  <TableBody>
+                    {(member.RecentEvents || []).map((ev, idx) => (
+                      <TableRow key={idx}>
+                        <TableCell>{ev.event}</TableCell>
+                        <TableCell>{ev.distance}</TableCell>
+                        <TableCell>{ev.time}</TableCell>
+                      </TableRow>
+                    ))}
+                  </TableBody>
+                </Table>
+              </Box>
+            </AccordionDetails>
+          </Accordion>
+        ))}
       </Box>
     );
   }
 
+  const [expandedRow, setExpandedRow] = React.useState(null);
+  const handleRowClick = (id) => {
+    setExpandedRow(expandedRow === id ? null : id);
+  };
+
   return (
     <>
       <Box sx={{ mb: 2, textAlign: 'center', color: 'text.secondary', fontSize: 16 }}>
-        Click a row to view all PRs for that member
+        <strong>Click on a member to see more results</strong>
       </Box>
       <TableContainer component={Paper} style={{ maxHeight: '70vh', margin: '20px', border: '1px solid #ddd' }}>
         <Table stickyHeader>
@@ -94,62 +76,65 @@ const MembersTable = ({ members }) => {
                 </TableSortLabel>
               </TableCell>
               <TableCell style={{ fontWeight: 'bold' }}>Location</TableCell>
-              <TableCell style={{ fontWeight: 'bold' }}>PR Distance</TableCell>
-              <TableCell style={{ fontWeight: 'bold' }}>PR Time</TableCell>
+              <TableCell style={{ fontWeight: 'bold' }}>Recent Event</TableCell>
+              <TableCell style={{ fontWeight: 'bold' }}>Distance</TableCell>
+              <TableCell style={{ fontWeight: 'bold' }}>Result</TableCell>
               <TableCell style={{ fontWeight: 'bold' }}></TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
             {sortedMembers.map((member) => {
               const isExpanded = expandedRow === member.id;
-              const allPRs = prColumns
-                .map(col => ({ distance: col, time: member[col] }))
-                .filter(pr => pr.time && pr.time.trim().toLowerCase() !== 'n/a');
-              const hasExpandable = allPRs.length > 0;
               return (
                 <React.Fragment key={member.id}>
                   <TableRow
                     hover
-                    onClick={hasExpandable ? () => handleRowClick(member.id) : undefined}
+                    onClick={() => handleRowClick(member.id)}
                     style={{
-                      cursor: hasExpandable ? 'pointer' : 'default',
+                      cursor: 'pointer',
                       background: isExpanded ? '#e3f2fd' : undefined,
                       transition: 'background 0.2s',
                     }}
-                    onMouseDown={hasExpandable ? e => e.currentTarget.style.background = '#bbdefb' : undefined}
-                    onMouseUp={hasExpandable ? e => e.currentTarget.style.background = isExpanded ? '#e3f2fd' : '' : undefined}
-                    onMouseLeave={hasExpandable ? e => e.currentTarget.style.background = isExpanded ? '#e3f2fd' : '' : undefined}
                   >
                     <TableCell>{member.displayName}</TableCell>
                     <TableCell>{member.location}</TableCell>
-                    <TableCell>{member.PRDistance}</TableCell>
-                    <TableCell>{member.PRTime}</TableCell>
+                    <TableCell>{member.RecentEvent}</TableCell>
+                    <TableCell>{member.RecentEventDistance}</TableCell>
+                    <TableCell>{member.RecentEventTime}</TableCell>
                     <TableCell width={40} align="center">
-                      {hasExpandable ? (isExpanded ? <KeyboardArrowDownIcon /> : <KeyboardArrowRightIcon />) : null}
+                      {isExpanded ? <KeyboardArrowDownIcon /> : null}
                     </TableCell>
                   </TableRow>
-                  {isExpanded && hasExpandable && (
+                  {isExpanded && (
                     <TableRow>
-                      <TableCell colSpan={5} style={{ background: '#fafafa', padding: 0 }}>
-                        <Box sx={{ p: 2 }}>
-                          <strong>PRs:</strong>
-                          <Table size="small" sx={{ mt: 1 }}>
-                            <TableHead>
-                              <TableRow>
-                                <TableCell>Distance</TableCell>
-                                <TableCell>Time</TableCell>
-                              </TableRow>
-                            </TableHead>
-                            <TableBody>
-                              {allPRs.map(pr => (
-                                <TableRow key={pr.distance}>
-                                  <TableCell>{pr.distance}</TableCell>
-                                  <TableCell>{pr.time}</TableCell>
+                      <TableCell colSpan={6} style={{ background: '#fafafa', padding: 0 }}>
+                        <Collapse in={isExpanded} timeout={400} unmountOnExit appear>
+                          <Box sx={{ p: 2, transition: 'padding 0.4s cubic-bezier(0.4,0,0.2,1)' }}>
+                            <strong>Recent Results:</strong>
+                            <Table size="small" sx={{ mt: 1 }}>
+                              <TableHead>
+                                <TableRow>
+                                  <TableCell style={{ fontWeight: 'bold' }}>Event</TableCell>
+                                  <TableCell style={{ fontWeight: 'bold' }}>Distance</TableCell>
+                                  <TableCell style={{ fontWeight: 'bold' }}>Time</TableCell>
+                                  <TableCell style={{ fontWeight: 'bold' }}>Date</TableCell>
+                                  <TableCell style={{ fontWeight: 'bold' }}>Place</TableCell>
                                 </TableRow>
-                              ))}
-                            </TableBody>
-                          </Table>
-                        </Box>
+                              </TableHead>
+                              <TableBody>
+                                {(member.RecentEvents || []).map((ev, idx) => (
+                                  <TableRow key={idx}>
+                                    <TableCell>{ev.event}</TableCell>
+                                    <TableCell>{ev.distance}</TableCell>
+                                    <TableCell>{ev.time}</TableCell>
+                                    <TableCell>{ev.date}</TableCell>
+                                    <TableCell>{ev.place}</TableCell>
+                                  </TableRow>
+                                ))}
+                              </TableBody>
+                            </Table>
+                          </Box>
+                        </Collapse>
                       </TableCell>
                     </TableRow>
                   )}
