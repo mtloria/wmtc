@@ -30,6 +30,6 @@ module.exports = {
       }
     }
   ],
-  pathPrefix: "/wmtc",
+  pathPrefix: "",
   assetPrefix: "",
 }
