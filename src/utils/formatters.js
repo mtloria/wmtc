@@ -22,7 +22,10 @@ export function formatResultTime(result) {
   if (parts[0] && Number(parts[0]) > 0) {
     formatted = String(Number(parts[0])) + ':' + mins + ':' + secs;
   } else {
-    formatted = mins + ':' + secs;
+    formatted = mins + (mins && secs ? ':' : '') + secs;
+  }
+  if (formatted.endsWith(':')) {
+    formatted = formatted.slice(0, -1);
   }
   return formatted + (ms ? '.' + ms : '');
 }
