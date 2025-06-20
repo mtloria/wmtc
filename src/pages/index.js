@@ -33,8 +33,9 @@ const IndexPage = () => {
       <CssBaseline />
       <main style={{ height: '200vh', position: 'relative' }}>
         <StaticImage 
-          src='../images/brady-track-bw-no-logo.jpg'
-          alt='Background Image' 
+          src='../images/brady-track-bw-small.jpg'
+          alt='Background Image'
+          quality={50}
           style={{ 
             position: 'absolute', 
             top: 0, 
