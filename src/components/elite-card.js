@@ -3,7 +3,7 @@ import { GatsbyImage } from 'gatsby-plugin-image';
 import * as React from 'react';
 import elites from '../data/elites';
 import { getImageByName } from '../utils/imageDataParser';
-import { Card, CardContent, CardMedia, Typography, Box, List, ListItem, ListItemIcon, ListItemText } from '@mui/material';
+import { Card, CardContent, Typography, Box, List, ListItem, ListItemIcon, ListItemText } from '@mui/material';
 
 const EliteCard = () => {
   const elitesImageData = useStaticQuery(graphql`
@@ -47,13 +47,14 @@ const EliteCard = () => {
         {elitesWithImages.map((elite, index) => (
           <Box key={index} m={2} width={300} height={525}>
             <Card style={{ height: '100%', display: 'flex', flexDirection: 'column', boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1)', border: '1px solid #ddd' }}>
-              <CardMedia style={{ flex: '0 0 auto', height: 220, display: 'flex', alignItems: 'stretch', justifyContent: 'center', overflow: 'hidden' }}>
+              <Box style={{ width: '100%', height: 220, overflow: 'hidden', position: 'relative' }}>
                 <GatsbyImage
                   image={elite.image}
                   alt={elite.name}
-                  style={{ width: 'auto', height: '100%', maxWidth: '100%', objectFit: 'contain' }}
+                  style={{ width: '100%', height: '100%' }}
+                  imgStyle={{ objectFit: 'cover', objectPosition: 'center top' }}
                 />
-              </CardMedia>
+              </Box>
               <CardContent style={{ flex: '0 1 auto' }}>
                 <Typography gutterBottom variant="h4" component="div" color="text.primary">
                   {elite.name}

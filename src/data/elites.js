@@ -15,7 +15,7 @@ const elites = [
   },
   {
     name: 'Johnnie Guy',
-    image: 'WMTC_Logo_elites',
+    image: 'johnnie_guy',
     location: 'Leopold, IN',
     jobTitle: 'Mechanical Engineer',
     prs: ['5K: 13:39', '10K: 28:34', 'Half Marathon: 1:06:47'],
