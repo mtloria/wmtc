@@ -18,7 +18,7 @@ const elites = [
     image: 'johnnie_guy',
     location: 'Leopold, IN',
     jobTitle: 'Mechanical Engineer',
-    prs: ['5K: 13:39', '10K: 28:34', 'Half Marathon: 1:06:47'],
+    prs: ['5K: 13:39', '10K: 28:34', 'Half Marathon: 1:04:14', 'Marathon: 2:18:38'],
   },
   {
     name: 'Caleb Kerr',
