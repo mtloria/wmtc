@@ -36,7 +36,7 @@ const elites = [
   },
   {
     name: 'Dylan Parker',
-    image: 'WMTC_Logo_elites',
+    image: 'dylan_parker',
     location: 'Ann Arbor, MI',
     jobTitle: 'TBD',
     prs: ['TBD'],
@@ -50,7 +50,7 @@ const elites = [
   },
   {
     name: 'Stephanie Sherman',
-    image: 'WMTC_Logo_elites',
+    image: 'stephanie_sherman',
     location: 'Indianapolis, IN',
     jobTitle: 'R&D Engineer at Cook Medical',
     prs: ['10K (Track): 33:25', 'Half Marathon: 1:14:40', 'Marathon: 2:34:34'],

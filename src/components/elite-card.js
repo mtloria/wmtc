@@ -45,9 +45,9 @@ const EliteCard = () => {
     <div>
       <Box display="flex" flexWrap="wrap" justifyContent="space-around">
         {elitesWithImages.map((elite, index) => (
-          <Box key={index} m={2} width={300} height={525}>
+          <Box key={index} m={2} width={300} height={545}>
             <Card style={{ height: '100%', display: 'flex', flexDirection: 'column', boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1)', border: '1px solid #ddd' }}>
-              <Box style={{ width: '100%', height: 220, overflow: 'hidden', position: 'relative' }}>
+              <Box style={{ width: '100%', height: 240, overflow: 'hidden', position: 'relative' }}>
                 <GatsbyImage
                   image={elite.image}
                   alt={elite.name}
