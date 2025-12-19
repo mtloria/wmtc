@@ -1,5 +1,12 @@
 const elites = [
   {
+    name: 'Lauren Bailey',
+    image: 'lauren_bailey',
+    location: 'Westfield, IN',
+    jobTitle: 'Home Site Coordinator: IN State Health Department',
+    prs: ['5K: 15:45', '6K: 20:14 (XC)', '10K: 33:53', 'Half Marathon: 1:18:05', 'Marathon: 2:42'],
+  },
+  {
     name: 'Lucy Dobbs',
     image: 'lucy_dobbs',
     location: 'Indianapolis, IN',
