@@ -11,21 +11,21 @@ const elites = [
     image: 'lucy_dobbs',
     location: 'Indianapolis, IN',
     jobTitle: 'Associate Actuary: OneAmerica',
-    prs: ['5K: 17:02', '10K: 34:48', 'Half Marathon: 1:16:56', 'Marathon: 2:36:33'],
+    prs: ['5K: 17:02', '10K: 34:48', 'Half Marathon: 1:15:05', 'Marathon: 2:32:38'],
   },
   {
     name: 'Curt Eckstein',
     image: 'curt_eckstein',
     location: 'Indianapolis, IN',
     jobTitle: 'GDP Engineer: Rolls Royce',
-    prs: ['5K: 13:48', '10K: 28:42', 'Half Marathon: 1:04:14'],
+    prs: ['5K: 13:48', '10K: 28:42', 'Half Marathon: 1:03:06'],
   },
   {
     name: 'Johnnie Guy',
     image: 'johnnie_guy',
     location: 'Leopold, IN',
     jobTitle: 'Mechanical Engineer',
-    prs: ['5K: 13:39', '10K: 28:34', 'Half Marathon: 1:04:14', 'Marathon: 2:18:38'],
+    prs: ['5K: 13:39', '10K: 28:34', 'Half Marathon: 1:04:14', 'Marathon: 2:16:41'],
   },
   {
     name: 'Caleb Kerr',
@@ -46,7 +46,7 @@ const elites = [
     image: 'dylan_parker',
     location: 'Ann Arbor, MI',
     jobTitle: 'TBD',
-    prs: ['TBD'],
+    prs: ['5k: 14:40', '8K: 24:18', 'Half Marathon: 1:05:56'],
   },
   {
     name: 'Damon Pruett',

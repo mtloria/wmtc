@@ -31,8 +31,8 @@ const teamLeaders = [
   {
     name: 'Abbey Warth - Social Media Coordinator and Athlete',
     image: 'abby_warth',
-    description: 'Abbey is from Massillon, OH and was part of the track and cross country teams at Ohio Wesleyan University, graduating in 2016. In 2018, Abbey moved to Florida where she attended PA school, briefly worked as a PA in Physical Medicine, and sweated more than she ever has in her entire life. Abbey relocated to Indianapolis in 2021 where she currently works as an Internal Medicine PA at St Vincent Hospital.',
-    prs: ['800m: 2:12', '1500m: 4:29', '5K: 17:31', '10K: 36:16', 'Half Marathon: 1:19:41'],
+    description: 'Abbey is originally from Massillon, OH and ran track and cross country at Ohio Wesleyan University 2012-2016. Abbey moved to Florida in 2018 to attend PA school, briefly worked as a PA in Physical Medicine, and sweated more than she ever has in her entire life. Abbey relocated to Indianapolis in 2021 where she currently works as a Burn & Plastic Surgery PA at St. Vincent Hospital. A middle distance runner at heart, Abbey has enjoyed pushing herself to improve at the longer distances.',
+    prs: ['1500m: 4:29', '5K: 17:31', '8K: 28:24', '10K: 36:16', 'Half Marathon: 1:19:41', 'Marathon: 2:53:47'],
     accomplishments: ['5x NCAA Division 3 qualifier in the 1500m and mile indoor/outdoor track (2014-2016)', 'Division 3 All-American in the 1500m (2015)']
   },
   {
@@ -47,7 +47,7 @@ const teamLeaders = [
     name: 'Lucy Dobbs - Team Captain and Athlete',
     image: 'lucy_dobbs',
     description: 'Lucy lives in Indianapolis, Indiana and works as an associate Actuary with OneAmerica. She ran for the club Cross Country and Track teams at Purdue University, where she was an All-American as well as a National Champion in the 5K on the track.',
-    prs: ['5K: 17:02', '10K: 34:48', 'Half Marathon: 1:16:56', 'Marathon: 2:36:33'],
+    prs: ['5K: 17:02', '10K: 34:48', 'Half Marathon: 1:15:05', 'Marathon: 2:32:38'],
     accomplishments: ['2019 NIRCA National Champion (Track 5K)', '2024 Olympic Marathon Trials Qualifier']
   },
 ];
