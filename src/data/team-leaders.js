@@ -25,7 +25,8 @@ const teamLeaders = [
     image: 'conner_sandt',
     description: 'Conner is from Middlebury, IN and ran for the Club Cross Country & Track teams at Purdue University. Conner graduated in 2020 and now works as an Electrical Engineer in Royal Oak, MI. Outside of running, Conner has an obvious passion and talent for photography and art. He even designed the WMTC logo!',
     prs: ['5K: 15:14', '8K: 25:12 (XC)', 'Half Marathon: 1:10:13'],
-    accomplishments: ['2 x NIRCA All-American (All XC) from 2018 - 2019', 'Only complained about every other workout last year']
+    accomplishments: ['2 x NIRCA All-American (All XC) from 2018 - 2019', 'Only complained about every other workout last year'],
+    archived: true,
   },
   {
     name: 'Abbey Warth - Social Media Coordinator and Athlete',
@@ -39,7 +40,8 @@ const teamLeaders = [
     image: 'max_runningen',
     description: 'Max is from Noblesville, IN and ran for the Club Cross Country & Track teams at Purdue University. Max graduated in 2020 and now works as civil engineer at Christopher B. Burke Engineering in Indianapolis. Outside of running on the roads, Max enjoys twisting his ankle while trail running.',
     prs: ['5K: 15:27', '10K: 33:11', 'Half Marathon: 1:10:56', 'Marathon: 2:34:12'],
-    accomplishments: ['2018 NIRCA All-American (Track)', 'The Indiana Pacers went undefeated (1-0) while Max was their team captain in 2019']
+    accomplishments: ['2018 NIRCA All-American (Track)', 'The Indiana Pacers went undefeated (1-0) while Max was their team captain in 2019'],
+    archived: true,
   },
   {
     name: 'Lucy Dobbs - Team Captain and Athlete',

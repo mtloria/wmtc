@@ -62,12 +62,14 @@ const MeetTheTeamPage = () => {
             }
           }
         `);
-  const teamLeadersWithImages = teamLeaders.map((leader) => {
-    return {
-      ...leader,
-      image: getImageByName(clubLeaderImageData, leader.image)
-    };
-  });
+  const teamLeadersWithImages = teamLeaders
+    .filter((leader) => !leader.archived)
+    .map((leader) => {
+      return {
+        ...leader,
+        image: getImageByName(clubLeaderImageData, leader.image)
+      };
+    });
 
   return (
     <ThemeProvider theme={theme}>
