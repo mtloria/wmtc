@@ -190,9 +190,12 @@ const IndexPage = () => {
                       src="../images/founding-members.jpeg"
                       alt="Founding Members"
                       style={{ 
-                        width: '100%', 
-                        height: '280px',
-                        objectFit: 'contain'
+                        width: '100%'
+                      }}
+                      objectFit="contain"
+                      imgStyle={{
+                        objectFit: 'contain',
+                        objectPosition: 'center top'
                       }}
                     />
                     <CardContent>
