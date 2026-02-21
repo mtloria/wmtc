@@ -139,9 +139,25 @@ const ResultsPage = () => {
 
   const sortedTableRows = [...tableRows].sort(compareRowsByDateDesc);
 
-  const distanceOptions = getTopValuesByFrequency(tableRows.map(row => row.distance), POPULAR_DISTANCE_LIMIT, compareDistanceValues);
+  const normalizedSearchTerm = searchTerm.trim().toLowerCase();
+
+  const searchMatchedRows = sortedTableRows.filter(row => (
+    !normalizedSearchTerm ||
+    row.name.toLowerCase().includes(normalizedSearchTerm) ||
+    row.event.toLowerCase().includes(normalizedSearchTerm)
+  ));
+
+  const distanceOptionRows = searchMatchedRows.filter(row => (
+    selectedEvent === 'All' || row.event === selectedEvent
+  ));
+
+  const eventOptionRows = searchMatchedRows.filter(row => (
+    selectedDistance === 'All' || row.distance === selectedDistance
+  ));
+
+  const distanceOptions = getTopValuesByFrequency(distanceOptionRows.map(row => row.distance), POPULAR_DISTANCE_LIMIT, compareDistanceValues);
   const eventOptions = getTopValuesByFrequency(
-    tableRows.map(row => row.event),
+    eventOptionRows.map(row => row.event),
     POPULAR_EVENT_LIMIT,
     (a, b) => a.localeCompare(b, undefined, { sensitivity: 'base' })
   );
@@ -158,16 +174,10 @@ const ResultsPage = () => {
     }
   }, [selectedEvent, eventOptions]);
 
-  const normalizedSearchTerm = searchTerm.trim().toLowerCase();
-
-  const filteredRows = sortedTableRows.filter(row => {
-    const matchesSearch =
-      !normalizedSearchTerm ||
-      row.name.toLowerCase().includes(normalizedSearchTerm) ||
-      row.event.toLowerCase().includes(normalizedSearchTerm);
+  const filteredRows = searchMatchedRows.filter(row => {
     const matchesDistance = selectedDistance === 'All' || row.distance === selectedDistance;
     const matchesEvent = selectedEvent === 'All' || row.event === selectedEvent;
-    return matchesSearch && matchesDistance && matchesEvent;
+    return matchesDistance && matchesEvent;
   });
 
   const resultsByYear = filteredRows.reduce((acc, row) => {
