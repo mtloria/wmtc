@@ -4,6 +4,7 @@ import { CircularProgress, Tabs, Tab, Box, Typography, Container } from '@mui/ma
 import { fetchGoogleSheetCSV } from '../data/googleSheetFetcher';
 import RecordsTable from '../components/records-table';
 import { fixUsDateString } from '../utils/formatters';
+import { compareDistances } from '../utils/distanceSorter';
 import { ThemeProvider } from '@mui/material/styles';
 import CssBaseline from '@mui/material/CssBaseline';
 import theme from '../theme';
@@ -85,31 +86,8 @@ const RecordsPage = () => {
     };
   };
 
-  const distanceOrder = [
-    '800m',
-    '1 mile',
-    '3K',
-    '5K',
-    '8K',
-    '10K',
-    '10 mile',
-    'Half Marathon',
-    'Marathon',
-    '50K',
-    '50 mile',
-    '100K',
-    '100 Mile'
-  ];
-
-  const normalizeDistance = d => (d || '').replace(/\s+/g, '').replace(/mile(s)?/gi, 'mile').replace(/k/gi, 'k').replace(/\./g, '').toLowerCase();
-  const distanceIndexMap = Object.fromEntries(
-    distanceOrder.map((d, i) => [normalizeDistance(d), i])
-  );
-
   const customSort = (a, b) => {
-    const idxA = distanceIndexMap[normalizeDistance(a.distance)] ?? Infinity;
-    const idxB = distanceIndexMap[normalizeDistance(b.distance)] ?? Infinity;
-    return idxA - idxB;
+    return compareDistances(a.distance, b.distance);
   };
 
   const showMen = tab === 0
