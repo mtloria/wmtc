@@ -2,9 +2,9 @@ const teamLeaders = [
   {
     name: 'Caleb Kerr - Co-Founder, Director, and Athlete',
     image: 'caleb_kerr',
-    description: 'Caleb is from Evansville, IN and ran for Purdue University from 2012 - 2016. He currently works as an Associate Director for Eli Lilly in Indianapolis. During his time at Purdue, specifically his Senior year, Caleb battled through severe achilles pain that progressively slowed him down until he graduated. After graduation, several months away from running, and two achilles surgeries, Caleb rejuvenated his running career while training in Indianapolis around his work hours. Caleb now lives in Zionsville, IN with his wife (and Purdue school record-holder in the mile) Katie Kerr.',
+    description: 'Caleb is from Evansville, IN and ran for Purdue University from 2012 - 2016. He currently works as an Associate Director for Eli Lilly in Indianapolis. During his time at Purdue, especially his senior year, Caleb battled severe achilles pain that progressively slowed him down until graduation. After graduation, several months away from running, and two achilles surgeries, Caleb rejuvenated his running career while training in Indianapolis around his work hours. Over the last several years, he has focused on the marathon and now enjoys racing while balancing work and his husband/dad duties. Caleb lives in Zionsville, IN with his wife (and Purdue school record-holder in the mile) Katie Kerr and their son Michael.',
     prs: ['5K: 14:16', '10K: 29:04', 'Half Marathon: 1:04:36', 'Marathon: 2:14:50'],
-    accomplishments: ['2x Olympic Marathon Trials Qualifier (2020 & 2024)', 'USATF Indiana Long Distance Athlete of the Year (2018)', 'Has only been dropped by his wife in a workout once']
+    accomplishments: ['2x Olympic Marathon Trials Qualifier (2020 & 2024)', '4x USATF Indiana Long Distance Runner of the Year (2018, 2020-2022)', '2021 Drumstick Dash Champion', 'Has only been dropped by his wife in a workout once']
   },
   {
     name: 'David Evans - President, Coach, and Athlete',
