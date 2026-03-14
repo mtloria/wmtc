@@ -1,6 +1,6 @@
 import * as React from 'react';
 import PropTypes from 'prop-types';
-import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper, useMediaQuery, Collapse, Box } from '@mui/material';
+import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper, useMediaQuery, Collapse, Box, Chip, Stack, Tooltip } from '@mui/material';
 import { formatResultTime } from '../utils/formatters';
 
 const ResultsTable = ({ results }) => {
@@ -74,7 +74,16 @@ const ResultsTable = ({ results }) => {
                   >
                     <TableCell>{row.name}</TableCell>
                     <TableCell>{row.distance}</TableCell>
-                    <TableCell>{formatResultTime(row.result)}</TableCell>
+                    <TableCell>
+                      <Stack direction="row" spacing={1} alignItems="center">
+                        <span>{formatResultTime(row.result)}</span>
+                        {row.isClubRecord && (
+                          <Tooltip title="Club Record" arrow>
+                            <Chip label="CR" size="small" color="secondary" />
+                          </Tooltip>
+                        )}
+                      </Stack>
+                    </TableCell>
                     <TableCell />
                   </TableRow>
                   <TableRow>
@@ -115,7 +124,16 @@ const ResultsTable = ({ results }) => {
             <TableRow key={idx} hover>
               <TableCell>{row.name}</TableCell>
               <TableCell>{row.distance}</TableCell>
-              <TableCell>{formatResultTime(row.result)}</TableCell>
+              <TableCell>
+                <Stack direction="row" spacing={1} alignItems="center">
+                  <span>{formatResultTime(row.result)}</span>
+                  {row.isClubRecord && (
+                    <Tooltip title="Club Record" arrow>
+                      <Chip label="CR" size="small" color="secondary" />
+                    </Tooltip>
+                  )}
+                </Stack>
+              </TableCell>
               <TableCell>{row.event}</TableCell>
               <TableCell>{row.place}</TableCell>
               <TableCell>{row.date}</TableCell>
@@ -134,6 +152,7 @@ ResultsTable.propTypes = {
       result: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
       event: PropTypes.string,
       date: PropTypes.string,
+      isClubRecord: PropTypes.bool,
     })
   ).isRequired,
 };

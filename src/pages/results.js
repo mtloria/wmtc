@@ -19,6 +19,7 @@ import {
   MenuItem,
   Stack,
   Button,
+  Chip,
 } from '@mui/material';
 import { fetchGoogleSheetCSV } from '../data/googleSheetFetcher';
 import ResultsTable from '../components/results-table';
@@ -34,6 +35,25 @@ const ALL_YEARS = 'All Years';
 const UNKNOWN_YEAR = 'Unknown';
 const POPULAR_DISTANCE_LIMIT = 8;
 const POPULAR_EVENT_LIMIT = 12;
+
+const normalizeValue = value => (value || '').toString().trim().toLowerCase();
+
+const buildResultLookupKey = ({ name, distance, result, date }) => {
+  return [
+    normalizeValue(name),
+    normalizeValue(distance),
+    normalizeValue(formatResultTime(result)),
+    normalizeValue(date),
+  ].join('|');
+};
+
+const buildResultLookupKeyNoDate = ({ name, distance, result }) => {
+  return [
+    normalizeValue(name),
+    normalizeValue(distance),
+    normalizeValue(formatResultTime(result)),
+  ].join('|');
+};
 
 const getDateValue = dateString => {
   if (!dateString) return null;
@@ -75,6 +95,7 @@ const getTopValuesByFrequency = (values, limit, sorter) => {
 
 const ResultsPage = () => {
   const [results, setResults] = React.useState([]);
+  const [clubRecordLookup, setClubRecordLookup] = React.useState({ exact: new Set(), noDate: new Set() });
   const [loading, setLoading] = React.useState(true);
   const [error, setError] = React.useState(null);
   const [selectedYear, setSelectedYear] = React.useState(null);
@@ -95,8 +116,32 @@ const ResultsPage = () => {
       setLoading(true);
       setError(null);
       try {
-        const data = await fetchGoogleSheetCSV(spreadsheetId, 'Results');
-        setResults(data);
+        const [resultsData, recordsData] = await Promise.all([
+          fetchGoogleSheetCSV(spreadsheetId, 'Results'),
+          fetchGoogleSheetCSV(spreadsheetId, 'Records'),
+        ]);
+
+        const validRecords = recordsData.filter(r => (
+          (r['First Name'] && r['First Name'].trim() !== '') ||
+          (r['Last Name'] && r['Last Name'].trim() !== '')
+        ));
+
+        const recordRows = validRecords.map(r => {
+          const formattedDate = fixUsDateString(r.Date || '');
+          const recordTime = r['Actual time used for formulas Time'] || r.Time || '';
+          return {
+            name: `${r['First Name'] || ''} ${r['Last Name'] || ''}`.trim(),
+            distance: r.Distance || '',
+            result: recordTime,
+            date: formattedDate,
+          };
+        });
+
+        setClubRecordLookup({
+          exact: new Set(recordRows.map(buildResultLookupKey)),
+          noDate: new Set(recordRows.map(buildResultLookupKeyNoDate)),
+        });
+        setResults(resultsData);
       } catch (e) {
         setError('Failed to load results. Please try again later.');
       } finally {
@@ -125,13 +170,19 @@ const ResultsPage = () => {
     let result = r['Result (HH:MM:SS.MS)'] || '';
     result = formatResultTime(result);
     let place = r['Place (optional)'] && r['Place (optional)'].trim() !== 'N/A' ? r['Place (optional)'] : '';
-    return {
+    const mappedResult = {
       name: `${r['First Name'] || ''} ${r['Last Name'] || ''}`.trim(),
       distance: r['Event Distance'] || '',
       result,
       event: r['Event Name'] || '',
       place,
       date: formattedDate
+    };
+    return {
+      ...mappedResult,
+      isClubRecord:
+        clubRecordLookup.exact.has(buildResultLookupKey(mappedResult)) ||
+        clubRecordLookup.noDate.has(buildResultLookupKeyNoDate(mappedResult)),
     };
   };
 
@@ -266,6 +317,12 @@ const ResultsPage = () => {
                 <Button variant="outlined" onClick={clearFilters} sx={{ alignSelf: { xs: 'stretch', md: 'center' } }}>
                   Clear
                 </Button>
+              </Stack>
+              <Stack direction="row" spacing={1} alignItems="center" sx={{ mt: 1.5 }}>
+                <Chip label="CR" size="small" color="secondary" />
+                <Typography variant="body2" color="text.secondary">
+                  = Club Record
+                </Typography>
               </Stack>
             </Box>
           )}
