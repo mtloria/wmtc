@@ -249,7 +249,7 @@ const IndexPage = () => {
                         }}>
                           <iframe
                             src="https://www.youtube.com/embed/xyxp2ax1WhA"
-                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                            allow="autoplay; encrypted-media; picture-in-picture"
                             allowFullScreen
                             title="WMTC Video"
                             style={{ 
