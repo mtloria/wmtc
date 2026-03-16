@@ -5,7 +5,7 @@ import { useLocation } from '@reach/router';
 import { ThemeProvider } from '@mui/material/styles';
 import CssBaseline from '@mui/material/CssBaseline';
 import theme from '../theme';
-import { Typography, Container, Box, Card, CardContent, Button, Grid2 } from '@mui/material';
+import { Typography, Container, Box, Card, CardContent, Button, Grid2, Chip } from '@mui/material';
 import WhereWeRace from '../components/where-we-race';
 
 const IndexPage = () => {
@@ -270,6 +270,116 @@ const IndexPage = () => {
                       </CardContent>
                     </Card>
                   </Box>
+                </Grid2>
+              </Grid2>
+            </Box>
+
+            <Box
+              id="world-record"
+              sx={{
+                mb: 8,
+                p: { xs: 3, md: 5 },
+                borderRadius: 4,
+                color: 'common.white',
+                background: 'linear-gradient(135deg, #202a44 0%, #1f3c63 55%, #2b5a88 100%)',
+                boxShadow: '0 18px 50px rgba(32,42,68,0.18)',
+                overflow: 'hidden',
+                position: 'relative'
+              }}
+            >
+              <Box
+                sx={{
+                  position: 'absolute',
+                  inset: 0,
+                  background: 'radial-gradient(circle at top right, rgba(255,255,255,0.16), transparent 30%), radial-gradient(circle at bottom left, rgba(255,255,255,0.12), transparent 28%)',
+                  pointerEvents: 'none'
+                }}
+              />
+              <Grid2 container spacing={4} alignItems="center" sx={{ position: 'relative' }}>
+                <Grid2 size={{ xs: 12, md: 5 }}>
+                  <Chip
+                    label="World Record Spotlight"
+                    sx={{
+                      mb: 2,
+                      backgroundColor: 'rgba(255,255,255,0.14)',
+                      color: 'common.white',
+                      fontWeight: 700,
+                      letterSpacing: 0.4
+                    }}
+                  />
+                  <Typography variant="h2" sx={{ color: 'common.white', mb: 2 }}>
+                    Matthew Sraders ran 1:19:39 while dribbling a basketball.
+                  </Typography>
+                  <Typography variant="h6" sx={{ color: 'rgba(255,255,255,0.82)', mb: 3, maxWidth: 520 }}>
+                    A WMTC athlete now holds the Guinness World Record for the fastest half marathon while dribbling a basketball. The full effort is live on YouTube.
+                  </Typography>
+                  <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 1.5, mb: 3 }}>
+                    <Chip label="Half Marathon" sx={{ backgroundColor: 'rgba(255,255,255,0.12)', color: 'common.white' }} />
+                    <Chip label="1:19:39" sx={{ backgroundColor: 'rgba(255,255,255,0.12)', color: 'common.white' }} />
+                    <Chip label="Guinness World Record" sx={{ backgroundColor: 'rgba(255,255,255,0.12)', color: 'common.white' }} />
+                  </Box>
+                  <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 2 }}>
+                    <Button
+                      variant="contained"
+                      size="large"
+                      href="https://www.youtube.com/watch?v=Gguk1cblY44"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      sx={{
+                        backgroundColor: 'common.white',
+                        color: 'primary.main',
+                        '&:hover': {
+                          backgroundColor: 'rgba(255,255,255,0.9)'
+                        }
+                      }}
+                    >
+                      Watch on YouTube
+                    </Button>
+                    <Button
+                      variant="outlined"
+                      size="large"
+                      href="/records"
+                      sx={{
+                        borderColor: 'rgba(255,255,255,0.45)',
+                        color: 'common.white',
+                        '&:hover': {
+                          borderColor: 'common.white',
+                          backgroundColor: 'rgba(255,255,255,0.08)'
+                        }
+                      }}
+                    >
+                      Explore Club Records
+                    </Button>
+                  </Box>
+                </Grid2>
+                <Grid2 size={{ xs: 12, md: 7 }}>
+                  <Card sx={{ p: { xs: 1, md: 1.5 }, backgroundColor: 'rgba(7,14,24,0.92)', borderRadius: 3 }}>
+                    <Box
+                      sx={{
+                        position: 'relative',
+                        paddingBottom: '56.25%',
+                        height: 0,
+                        overflow: 'hidden',
+                        borderRadius: 2,
+                        border: '1px solid rgba(255,255,255,0.08)'
+                      }}
+                    >
+                      <iframe
+                        src="https://www.youtube.com/embed/Gguk1cblY44"
+                        allow="autoplay; encrypted-media; picture-in-picture"
+                        allowFullScreen
+                        title="Matthew Sraders world record half marathon while dribbling a basketball"
+                        style={{
+                          position: 'absolute',
+                          top: 0,
+                          left: 0,
+                          width: '100%',
+                          height: '100%',
+                          border: 'none'
+                        }}
+                      />
+                    </Box>
+                  </Card>
                 </Grid2>
               </Grid2>
             </Box>
