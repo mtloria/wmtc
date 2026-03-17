@@ -12,15 +12,20 @@ const IndexPage = () => {
   React.useEffect(() => {
     document.body.style.margin = '0';
     document.body.style.padding = '0';
-    
-    // Force scroll to top on page load/refresh
+
+    if (window.location.hash) {
+      const id = window.location.hash.slice(1);
+      const timer = setTimeout(() => {
+        const el = document.getElementById(id);
+        if (el) el.scrollIntoView({ behavior: 'smooth' });
+      }, 200);
+      return () => clearTimeout(timer);
+    }
+
     window.scrollTo(0, 0);
-    
-    // Also reset scroll position after a brief delay to handle browser restoration
     const timer = setTimeout(() => {
       window.scrollTo(0, 0);
     }, 100);
-    
     return () => clearTimeout(timer);
   }, []);
 
