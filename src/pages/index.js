@@ -29,9 +29,12 @@ const IndexPage = () => {
     return () => clearTimeout(timer);
   }, []);
 
-  const [scrollY, setScrollY] = React.useState(() =>
-    typeof window !== 'undefined' && window.location.hash ? window.innerHeight : 0
-  );
+  const [scrollY, setScrollY] = React.useState(0);
+  const [skipAnimation, setSkipAnimation] = React.useState(false);
+
+  React.useEffect(() => {
+    if (window.location.hash) setSkipAnimation(true);
+  }, []);
   const [showVideo, setShowVideo] = React.useState(false);
 
   React.useEffect(() => {
@@ -47,7 +50,7 @@ const IndexPage = () => {
   const maxScroll = typeof window !== 'undefined' ? window.innerHeight : 800;
   const heroOpacity = Math.max(0, 0.8 - (scrollY / maxScroll));
   const titleOpacity = Math.max(0, 1 - (scrollY / (maxScroll * 0.6)));
-  const contentFadeIn = Math.min(1, Math.max(0, (scrollY - maxScroll * 0.3) / (maxScroll * 0.3)));
+  const contentFadeIn = skipAnimation ? 1 : Math.min(1, Math.max(0, (scrollY - maxScroll * 0.3) / (maxScroll * 0.3)));
 
   return (
     <ThemeProvider theme={theme}>
