@@ -29,7 +29,9 @@ const IndexPage = () => {
     return () => clearTimeout(timer);
   }, []);
 
-  const [scrollY, setScrollY] = React.useState(0);
+  const [scrollY, setScrollY] = React.useState(() =>
+    typeof window !== 'undefined' && window.location.hash ? window.innerHeight : 0
+  );
   const [showVideo, setShowVideo] = React.useState(false);
 
   React.useEffect(() => {
