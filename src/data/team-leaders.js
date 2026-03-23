@@ -32,7 +32,7 @@ const teamLeaders = [
     name: 'Abbey Warth - Social Media Coordinator and Athlete',
     image: 'abby_warth',
     description: 'Abbey is originally from Massillon, OH and ran track and cross country at Ohio Wesleyan University 2012-2016. Abbey moved to Florida in 2018 to attend PA school, briefly worked as a PA in Physical Medicine, and sweated more than she ever has in her entire life. Abbey relocated to Indianapolis in 2021 where she currently works as a Burn & Plastic Surgery PA at St. Vincent Hospital. A middle distance runner at heart, Abbey has enjoyed pushing herself to improve at the longer distances.',
-    prs: ['1500m: 4:29', '5K: 17:31', '8K: 28:24', '10K: 36:16', 'Half Marathon: 1:19:41', 'Marathon: 2:53:47'],
+    prs: ['1500m: 4:29', '5K: 17:19', '8K: 28:24', '10K: 36:16', 'Half Marathon: 1:19:41', 'Marathon: 2:53:47'],
     accomplishments: ['5x NCAA Division 3 qualifier in the 1500m and mile indoor/outdoor track (2014-2016)', 'Division 3 All-American in the 1500m (2015)']
   },
   {
