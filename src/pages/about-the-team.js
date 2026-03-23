@@ -1,4 +1,4 @@
-import { Box, Typography, Card, CardContent, Grid, Container, Chip, Avatar } from '@mui/material';
+import { Box, Typography, Card, CardContent, Grid2, Container, Chip, Avatar } from '@mui/material';
 import * as React from 'react';
 import foundingMembers from '../images/founding-members.jpeg';
 import { StaticImage } from 'gatsby-plugin-image';
@@ -27,8 +27,8 @@ const AboutTheTeamPage = () => {
         </Box>
 
         {/* Key Principles */}
-        <Grid container spacing={4} sx={{ mb: 8 }}>
-          <Grid item xs={12} sm={6} md={3}>
+        <Grid2 container spacing={4} sx={{ mb: 8 }}>
+          <Grid2 size={{ xs: 12, sm: 6, md: 3 }}>
             <Card sx={{ height: '100%', textAlign: 'center', p: 2 }}>
               <Avatar sx={{ bgcolor: 'primary.main', mx: 'auto', mb: 2 }}>
                 <WorkIcon />
@@ -38,8 +38,8 @@ const AboutTheTeamPage = () => {
                 Full-time careers fund our running dreams
               </Typography>
             </Card>
-          </Grid>
-          <Grid item xs={12} sm={6} md={3}>
+          </Grid2>
+          <Grid2 size={{ xs: 12, sm: 6, md: 3 }}>
             <Card sx={{ height: '100%', textAlign: 'center', p: 2 }}>
               <Avatar sx={{ bgcolor: 'primary.main', mx: 'auto', mb: 2 }}>
                 <DirectionsRunIcon />
@@ -49,8 +49,8 @@ const AboutTheTeamPage = () => {
                 6AM workouts before the day job begins
               </Typography>
             </Card>
-          </Grid>
-          <Grid item xs={12} sm={6} md={3}>
+          </Grid2>
+          <Grid2 size={{ xs: 12, sm: 6, md: 3 }}>
             <Card sx={{ height: '100%', textAlign: 'center', p: 2 }}>
               <Avatar sx={{ bgcolor: 'primary.main', mx: 'auto', mb: 2 }}>
                 <GroupIcon />
@@ -60,8 +60,8 @@ const AboutTheTeamPage = () => {
                 Stronger together than apart
               </Typography>
             </Card>
-          </Grid>
-          <Grid item xs={12} sm={6} md={3}>
+          </Grid2>
+          <Grid2 size={{ xs: 12, sm: 6, md: 3 }}>
             <Card sx={{ height: '100%', textAlign: 'center', p: 2 }}>
               <Avatar sx={{ bgcolor: 'primary.main', mx: 'auto', mb: 2 }}>
                 <TrendingUpIcon />
@@ -71,13 +71,13 @@ const AboutTheTeamPage = () => {
                 Olympic Trials and beyond
               </Typography>
             </Card>
-          </Grid>
-        </Grid>
+          </Grid2>
+        </Grid2>
 
         {/* Founding Story Visual */}
         <Card sx={{ mb: 6 }}>
-          <Grid container>
-            <Grid item xs={12} md={8}>
+          <Grid2 container>
+            <Grid2 size={{ xs: 12, md: 8 }}>
               <Box 
                 component="img"
                 src={foundingMembers}
@@ -88,8 +88,8 @@ const AboutTheTeamPage = () => {
                   objectFit: 'cover' 
                 }}
               />
-            </Grid>
-            <Grid item xs={12} md={4}>
+            </Grid2>
+            <Grid2 size={{ xs: 12, md: 4 }}>
               <CardContent sx={{ height: '100%', display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
                 <Typography variant="h4" gutterBottom>
                   The Beginning
@@ -110,8 +110,8 @@ const AboutTheTeamPage = () => {
                   <Chip label="Tom Anderson" size="small" />
                 </Box>
               </CardContent>
-            </Grid>
-          </Grid>
+            </Grid2>
+          </Grid2>
         </Card>
 
         {/* Timeline/Milestones */}
@@ -119,8 +119,8 @@ const AboutTheTeamPage = () => {
           <Typography variant="h4" align="center" gutterBottom>
             Our Journey
           </Typography>
-          <Grid container spacing={4}>
-            <Grid item xs={12} md={4}>
+          <Grid2 container spacing={4}>
+            <Grid2 size={{ xs: 12, md: 4 }}>
               <Card sx={{ p: 3, textAlign: 'center' }}>
                 <Typography variant="h3" color="primary" gutterBottom>2018</Typography>
                 <Typography variant="h6" gutterBottom>The Meeting</Typography>
@@ -128,8 +128,8 @@ const AboutTheTeamPage = () => {
                   Caleb and Jordan finish within 10 seconds at the OneAmerica Indy Mini Marathon, both in the top 10
                 </Typography>
               </Card>
-            </Grid>
-            <Grid item xs={12} md={4}>
+            </Grid2>
+            <Grid2 size={{ xs: 12, md: 4 }}>
               <Card sx={{ p: 3, textAlign: 'center' }}>
                 <Typography variant="h3" color="primary" gutterBottom>2020</Typography>
                 <Typography variant="h6" gutterBottom>First Victory</Typography>
@@ -137,8 +137,8 @@ const AboutTheTeamPage = () => {
                   Team wins inaugural North American Distance Project Teams Competition at Rock n&apos; Roll New Orleans
                 </Typography>
               </Card>
-            </Grid>
-            <Grid item xs={12} md={4}>
+            </Grid2>
+            <Grid2 size={{ xs: 12, md: 4 }}>
               <Card sx={{ p: 3, textAlign: 'center' }}>
                 <Typography variant="h3" color="primary" gutterBottom>2024</Typography>
                 <Typography variant="h6" gutterBottom>Olympic Trials</Typography>
@@ -146,13 +146,13 @@ const AboutTheTeamPage = () => {
                   Multiple athletes qualify for the Olympic Marathon Trials, strong showing at Shamrock Shuffle 8K
                 </Typography>
               </Card>
-            </Grid>
-          </Grid>
+            </Grid2>
+          </Grid2>
         </Box>
 
         {/* Daily Life Section */}
-        <Grid container spacing={4} sx={{ mb: 6 }}>
-          <Grid item xs={12} md={6}>
+        <Grid2 container spacing={4} sx={{ mb: 6 }}>
+          <Grid2 size={{ xs: 12, md: 6 }}>
             <Card sx={{ height: '100%', p: 3 }}>
               <Typography variant="h5" gutterBottom>
                 A Day In the Life
@@ -168,8 +168,8 @@ const AboutTheTeamPage = () => {
                 Some train in late evenings, while others extend the day at both ends by doubling!
               </Typography>
             </Card>
-          </Grid>
-          <Grid item xs={12} md={6}>
+          </Grid2>
+          <Grid2 size={{ xs: 12, md: 6 }}>
             <Card sx={{ height: '100%', p: 3 }}>
               <Typography variant="h5" gutterBottom>
                 What&apos;s Next
@@ -185,8 +185,8 @@ const AboutTheTeamPage = () => {
                 What&apos;s next? Growth! We hope to see you out there on the roads, track, and trails!
               </Typography>
             </Card>
-          </Grid>
-        </Grid>
+          </Grid2>
+        </Grid2>
 
         {/* Video Section */}
         <Card sx={{ mb: 6 }}>
